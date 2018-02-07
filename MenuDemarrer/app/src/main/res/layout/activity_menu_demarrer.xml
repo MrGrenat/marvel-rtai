@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imageBackground"
-        android:layout_width="1080px"
-        android:layout_height="1920px"
+        android:layout_width="720px"
+        android:layout_height="1280px"
         android:adjustViewBounds="true"
         android:contentDescription="BackgroundAcceuil."
         app:layout_constraintStart_toStartOf="parent"

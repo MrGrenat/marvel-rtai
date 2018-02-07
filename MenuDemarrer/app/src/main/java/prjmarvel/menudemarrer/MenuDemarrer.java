@@ -18,10 +18,11 @@ public class MenuDemarrer extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_demarrer);
         startBtn = (Button) findViewById(R.id.startButton);
-
+        System.out.println(startBtn);
+        System.out.println("ici");
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View startBtn) {
                 Intent pageGetPseudo = new Intent(MenuDemarrer.this, GetPseudoPage.class);
                 startActivity(pageGetPseudo);
             }
