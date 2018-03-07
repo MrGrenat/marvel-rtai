@@ -1,37 +1,22 @@
 package marvel.app;
 
-
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.view.View;
 
+/**
+ * Created by Adrien on 07/03/2018.
+ */
 
-public class MenuDemarrer extends AppCompatActivity{
-    Button startBtn = null;
-    ImageView imageBackground;
-
-    @Override
+public class SettingsLaw  extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu_demarrer);
-        startBtn = (Button) findViewById(R.id.startButton);
-        System.out.println(startBtn);
-        System.out.println("ici");
-        startBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View startBtn) {
-                Intent pageGetPseudo = new Intent(MenuDemarrer.this, GetPseudo.class);
-                startActivity(pageGetPseudo);
-            }
-        });
-    }
+        setContentView(R.layout.activity_settings_law);
 
+    }
     //Appel du menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -43,11 +28,11 @@ public class MenuDemarrer extends AppCompatActivity{
         this.finish();
     }
     private void openSettingsUser(){
-        Intent pageSettingsUser = new Intent(MenuDemarrer.this, SettingsUser.class);
+        Intent pageSettingsUser = new Intent(SettingsLaw.this, SettingsUser.class);
         startActivity(pageSettingsUser);
     }
     private void openSettingsLaw(){
-        Intent pageSettingsLaw = new Intent(this, SettingsLaw.class);
+        Intent pageSettingsLaw = new Intent(SettingsLaw.this, SettingsLaw.class);
         startActivity(pageSettingsLaw);
     }
     private void openHome(){
@@ -76,7 +61,4 @@ public class MenuDemarrer extends AppCompatActivity{
 
 
 
-   // public void menuToGet (View view){
-     //   startActivity(new Intent(this, GetPseudoPage.class));
-    //}
 }

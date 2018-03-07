@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="marvel.app.MenuDemarrer">
+
+    <ImageView
+        android:id="@+id/imageBackground"
+        android:layout_width="720px"
+        android:layout_height="1280px"
+        android:adjustViewBounds="true"
+        android:contentDescription="BackgroundAcceuil."
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/background" />
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="188dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/button_bg_stroke"
+        android:fontFamily="@font/benton_sans_bold"
+        android:shadowColor="@android:color/black"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:text="START"
+        android:textColor="#222"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.575"
+        app:layout_constraintStart_toStartOf="parent"
+        android:onClick="menuToGet"
+
+        />
+
+</android.support.constraint.ConstraintLayout>
