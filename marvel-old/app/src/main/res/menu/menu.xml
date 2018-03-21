@@ -1,0 +1,43 @@
+<!--<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_delete"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:title="btnRetour"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="menuBurger"
+        app:showAsAction="never" />
+
+</menu>-->
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_back"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_action_back"
+        android:title="back"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_home"
+        android:orderInCategory="50"
+        android:icon="@drawable/ic_action_home"
+        android:title="home"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_settings"
+        android:title="> Paramètres utilisateurs"></item>
+    <item
+        android:id="@+id/action_settings2"
+        android:title="> Mentions légales">
+    </item>
+    <item
+        android:id="@+id/action_settings3"
+        android:title="> Mes Héros">
+    </item>
+
+</menu>

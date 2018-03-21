@@ -21,6 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>-->
         </activity>
+        <activity android:name="marvel.app.SettingsUser"></activity>
+        <activity android:name="marvel.app.SettingsLaw"></activity>
     </application>
 
 </manifest>
