@@ -30,7 +30,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import marvel.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -141,6 +140,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
                             Intent pageMenuDemarrer = new Intent(SplashScreenActivity.this, MenuDemarrer.class);
                             startActivity(pageMenuDemarrer);
+                            finish();
 
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -163,6 +163,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 public void run() {
                     Intent pageMenuDemarrer = new Intent(SplashScreenActivity.this, MenuDemarrer.class);
                     startActivity(pageMenuDemarrer);
+                    finish();
                 }
             }, 2000);
         }

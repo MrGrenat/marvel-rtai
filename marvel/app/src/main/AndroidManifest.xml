@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="marvel">
+    package="marvel.app">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -12,17 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--
-        <activity android:name=".JSON.JSON">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        -->
-
-        <activity android:name=".app.SplashScreenActivity"
+        <activity android:name=".SplashScreenActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoTitleBar">
             <intent-filter>
@@ -31,17 +21,32 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".app.MenuDemarrer" android:screenOrientation="portrait">
-        </activity>
-        <activity android:name=".app.GetPseudo" android:screenOrientation="portrait">
-            <!--           <intent-filter>
-                           <action android:name="android.intent.action.MAIN" />
-                           <category android:name="android.intent.category.LAUNCHER" />
-                       </intent-filter>-->
-        </activity>
-        <activity android:name=".app.SettingsUser" android:screenOrientation="portrait"></activity>
-        <activity android:name=".app.SettingsLaw" android:screenOrientation="portrait"></activity>
 
+        <activity
+            android:name=".MenuDemarrer"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".GetPseudo"
+            android:screenOrientation="portrait">
+
+            <!--
+                <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+        <activity
+            android:name=".SettingsUser"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SettingsLaw"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Questionnaire"
+            android:label="@string/title_activity_questionnaire"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

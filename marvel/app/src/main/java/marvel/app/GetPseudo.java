@@ -1,24 +1,25 @@
 package marvel.app;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -28,21 +29,24 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 
-import marvel.R;
+import static android.media.MediaRecorder.VideoSource.CAMERA;
 
 @SuppressLint("Registered")
 public class GetPseudo extends AppCompatActivity {
 
     ImageView photo;
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    EditText etPseudo;
+    String pseudo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_pseudo);
         Button btnCamera = (Button)findViewById(R.id.bt_photo);
+        Button btValider = (Button)findViewById(R.id.bt_valider);
+        etPseudo = (EditText)findViewById(R.id.et_pseudo);
+        pseudo = etPseudo.getText().toString();
         photo = (ImageView)findViewById(R.id.iv_photo);
         //Appel de la fonction showPictureDialog au clic sur le bouton Camera
         btnCamera.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +55,34 @@ public class GetPseudo extends AppCompatActivity {
                 showPictureDialog();
             }
         });
+
+        btValider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                gererErreur();
+            }
+        });
+    }
+
+    //gere les erreurs
+    public void gererErreur() {
+        //si l'utilisateur ne rentre pas de pseudo
+        if(etPseudo.getText().toString().trim().length() == 0) {
+            etPseudo.setError("Veuillez entrer votre pseudo");
+            return;
+        }
+        //si l'utilisateur n'entre pas de photo
+        else if(null == photo.getDrawable())
+        {
+            Toast errorToast = Toast.makeText(getApplicationContext(), "Veuillez sélectionner une photo", Toast.LENGTH_SHORT);
+            errorToast.show();
+        }
+        //sinon ouvre le questionnaire
+        else
+        {
+            Intent pageQuestionnaire = new Intent(GetPseudo.this, Questionnaire.class);
+            startActivity(pageQuestionnaire);
+        }
     }
 
     //Demande à l'utilisateur s'il veut prendre une photo ou en sélectionnez une dans sa galerie
@@ -80,7 +112,7 @@ public class GetPseudo extends AppCompatActivity {
     //Fonction permettant de sélectionnez une photo depuis la galerie
     public void choosePhotoFromGallary() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
         startActivityForResult(galleryIntent, 2);
     }
