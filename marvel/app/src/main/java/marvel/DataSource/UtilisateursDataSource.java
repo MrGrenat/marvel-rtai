@@ -51,6 +51,19 @@ public class UtilisateursDataSource {
 
     }
 
+    public void insertUtilisateurs(String pseudo){
+        ContentValues values = new ContentValues();
+        values.put(DbHelper.UTILISATEUR_PSEUDO, pseudo);
+        System.out.println("PSEUUUUUUUUUUUUUUUUUUUUUUUUUUUUUDO"+pseudo);
+
+        long insertId = database.insert(DbHelper.TABLE_UTILISATEUR, null,values);
+        Cursor cursor = database.query(DbHelper.TABLE_UTILISATEUR, allColumns,
+                DbHelper.UTILISATEUR_ID + " = " +insertId,
+                null,null,null,null);
+        cursor.moveToFirst();
+        cursor.close();
+    }
+
     public void deleteUtilisateur(Utilisateurs utilisateur) {
         long id = utilisateur.getId();
         System.out.println("Utilisateur deleted with id: " + id);
@@ -82,6 +95,7 @@ public class UtilisateursDataSource {
         Utilisateurs utilisateurs = new Utilisateurs();
         utilisateurs.setId(cursor.getLong(0));
         utilisateurs.setNom(cursor.getString(1));
+        System.out.println("NOOOOOOOOOOOOOOOOOOOM: " + cursor.getString(1));
         return utilisateurs;
     }
 }

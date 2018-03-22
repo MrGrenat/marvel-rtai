@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
@@ -28,25 +29,54 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.List;
+
+import marvel.DataSource.HerosDataSource;
+import marvel.DataSource.UtilisateursDataSource;
+import marvel.Tables.Utilisateurs;
 
 import static android.media.MediaRecorder.VideoSource.CAMERA;
 
 @SuppressLint("Registered")
 public class GetPseudo extends AppCompatActivity {
 
-    ImageView photo;
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-    EditText etPseudo;
-    String pseudo;
+    private ImageView photo;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private EditText etPseudo;
+    private String pseudo;
+    private UtilisateursDataSource datasourceUtilisateur;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_pseudo);
+        datasourceUtilisateur = new UtilisateursDataSource(getApplicationContext());
+        datasourceUtilisateur.open();
         Button btnCamera = (Button)findViewById(R.id.bt_photo);
         Button btValider = (Button)findViewById(R.id.bt_valider);
         etPseudo = (EditText)findViewById(R.id.et_pseudo);
-        pseudo = etPseudo.getText().toString();
+
+        if(datasourceUtilisateur.getAllUtilisateurs().isEmpty()){
+            pseudo = etPseudo.getText().toString();
+        }
+        else{
+            List<Utilisateurs> pseudoList = datasourceUtilisateur.getAllUtilisateurs();
+            for (Utilisateurs utils:pseudoList) {
+                System.out.println("-------------------------PSEUDO----------------------");
+
+                pseudo = utils.getNom();
+
+                System.out.println(pseudo);
+
+            }
+
+
+            etPseudo.setVisibility(View.INVISIBLE);
+            ((TextView)findViewById(R.id.tv_pseudo2)).setVisibility(View.INVISIBLE);
+            ((TextView)findViewById(R.id.tv_pseudo)).setText("Bonjour "+pseudo);
+        }
+
         photo = (ImageView)findViewById(R.id.iv_photo);
         //Appel de la fonction showPictureDialog au clic sur le bouton Camera
         btnCamera.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +97,7 @@ public class GetPseudo extends AppCompatActivity {
     //gere les erreurs
     public void gererErreur() {
         //si l'utilisateur ne rentre pas de pseudo
-        if(etPseudo.getText().toString().trim().length() == 0) {
+        if(etPseudo.getText().toString().trim().length() == 0 && datasourceUtilisateur.getAllUtilisateurs().isEmpty()) {
             etPseudo.setError("Veuillez entrer votre pseudo");
             return;
         }
@@ -80,8 +110,17 @@ public class GetPseudo extends AppCompatActivity {
         //sinon ouvre le questionnaire
         else
         {
+            pseudo = etPseudo.getText().toString();
+            if(datasourceUtilisateur.getAllUtilisateurs().isEmpty()){
+                datasourceUtilisateur.insertUtilisateurs(pseudo);
+            }
+
             Intent pageQuestionnaire = new Intent(GetPseudo.this, Questionnaire.class);
             startActivity(pageQuestionnaire);
+
+
+
+
         }
     }
 

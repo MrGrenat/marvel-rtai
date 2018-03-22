@@ -7,7 +7,7 @@ package marvel.Tables;
 public class Utilisateurs {
     private long id;
     private String nom;
-    private long idGroupe;
+
 
     //GETTER SETTER
     public long getId() {
@@ -26,17 +26,11 @@ public class Utilisateurs {
         this.nom = nom;
     }
 
-    public long getIdGroupe() {
-        return idGroupe;
-    }
 
-    public void setIdGroupe(long idGroupe) {
-        this.idGroupe = idGroupe;
-    }
 
     //AFFICHAGE D'UN UTILISATEUR
     @Override
     public String toString() {
-        return "ID :"+id + "ID GROUPE : "+idGroupe+" NOM : "+nom;
+        return "ID :"+id +" NOM : "+nom;
     }
 }
