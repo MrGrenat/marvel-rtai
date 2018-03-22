@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
+import marvel.R;
+
 /**
  * Created by Adrien on 07/03/2018.
  */

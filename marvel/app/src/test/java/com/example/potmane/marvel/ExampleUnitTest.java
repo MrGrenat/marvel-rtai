@@ -1,4 +1,4 @@
-package marvel.app;
+package com.example.potmane.marvel;
 
 import org.junit.Test;
 
