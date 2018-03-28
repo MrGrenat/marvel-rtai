@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
-    tools:context=".app.SplashScreenActivity">
+    tools:context=".SplashScreenActivity">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -16,6 +16,17 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="99dp"
         android:indeterminateTint="@android:color/background_light" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="350dp"
+        android:layout_height="25dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="46dp"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@android:color/background_light" />
 
     <ImageView
         android:id="@+id/imageView"

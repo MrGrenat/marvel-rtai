@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import marvel.DataSource.ComicsDataSource;
 import marvel.DataSource.HerosDataSource;
@@ -44,6 +45,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     private Thread threadJSON;
 
+    private TextView textView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
@@ -65,8 +67,10 @@ public class SplashScreenActivity extends AppCompatActivity {
         datasourceComics.open();
         datasourceSeries.open();
 
+        textView = (TextView)findViewById(R.id.textView);
 
         if (datasource.getAllHeros().isEmpty()) {
+            textView.setText("Chargement des données de l'API...");
             threadJSON = new Thread(new Runnable() {
 
                 @Override
@@ -120,8 +124,14 @@ public class SplashScreenActivity extends AppCompatActivity {
                             }
 
 
-                            System.out.println("VIDE");
                             for (Heros unHeros : lesHeros) {
+                                Thread.sleep(200);
+                                textView.post(new Runnable() {
+                                    public void run() {
+
+                                        textView.setText("Ajout des données dans la base...");
+                                    }
+                                });
 
                                 System.out.println(unHeros.getNom());
                                 datasource.insertHeroes(unHeros.getNom(), unHeros.getDesc(), unHeros.getUrlImage());
@@ -134,8 +144,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                                     datasourceComics.insertComics(comics.getNom());
 
                                 }
-
-
                             }
 
                             Intent pageMenuDemarrer = new Intent(SplashScreenActivity.this, MenuDemarrer.class);
