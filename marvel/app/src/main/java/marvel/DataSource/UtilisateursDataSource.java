@@ -54,7 +54,7 @@ public class UtilisateursDataSource {
     public void insertUtilisateurs(String pseudo){
         ContentValues values = new ContentValues();
         values.put(DbHelper.UTILISATEUR_PSEUDO, pseudo);
-        System.out.println("PSEUUUUUUUUUUUUUUUUUUUUUUUUUUUUUDO"+pseudo);
+
 
         long insertId = database.insert(DbHelper.TABLE_UTILISATEUR, null,values);
         Cursor cursor = database.query(DbHelper.TABLE_UTILISATEUR, allColumns,
@@ -63,7 +63,18 @@ public class UtilisateursDataSource {
         cursor.moveToFirst();
         cursor.close();
     }
+    public void updatePseudoUtilisateur(String nvPseudo){
+        List<Utilisateurs> utilisateurs = getAllUtilisateurs();
+        Utilisateurs utilisateur = utilisateurs.get(0);
+        long id = utilisateur.getId();
 
+        ContentValues values = new ContentValues();
+        values.put(DbHelper.UTILISATEUR_PSEUDO, nvPseudo);
+
+        database.update(DbHelper.TABLE_UTILISATEUR, values, DbHelper.UTILISATEUR_ID
+                + " = " + id, null);
+
+    }
     public void deleteUtilisateur(Utilisateurs utilisateur) {
         long id = utilisateur.getId();
         System.out.println("Utilisateur deleted with id: " + id);
@@ -95,7 +106,7 @@ public class UtilisateursDataSource {
         Utilisateurs utilisateurs = new Utilisateurs();
         utilisateurs.setId(cursor.getLong(0));
         utilisateurs.setNom(cursor.getString(1));
-        System.out.println("NOOOOOOOOOOOOOOOOOOOM: " + cursor.getString(1));
+        //System.out.println("NOOOOOOOOOOOOOOOOOOOM: " + cursor.getString(1));
         return utilisateurs;
     }
 }

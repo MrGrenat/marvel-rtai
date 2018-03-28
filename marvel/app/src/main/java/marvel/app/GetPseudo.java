@@ -51,10 +51,13 @@ public class GetPseudo extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_pseudo);
+
         datasourceUtilisateur = new UtilisateursDataSource(getApplicationContext());
         datasourceUtilisateur.open();
+
         Button btnCamera = (Button)findViewById(R.id.bt_photo);
         Button btValider = (Button)findViewById(R.id.bt_valider);
+
         etPseudo = (EditText)findViewById(R.id.et_pseudo);
 
         if(datasourceUtilisateur.getAllUtilisateurs().isEmpty()){
@@ -117,10 +120,6 @@ public class GetPseudo extends AppCompatActivity {
 
             Intent pageQuestionnaire = new Intent(GetPseudo.this, Questionnaire.class);
             startActivity(pageQuestionnaire);
-
-
-
-
         }
     }
 
