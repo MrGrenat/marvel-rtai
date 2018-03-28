@@ -1,15 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/button"
+    <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nice"
-        tools:layout_editor_absoluteX="136dp"
-        tools:layout_editor_absoluteY="195dp" />
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Pseudo Utilisateur"
+        android:textColor="?attr/colorPrimary"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/paraphe01"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.52" />
+
+    <TextView
+        android:id="@+id/paraphe01"
+        android:layout_width="0dp"
+        android:layout_height="95dp"
+        android:layout_marginBottom="22dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:text="Si vous le souhaitez vous pouvez modifier votre pseudo ci dessous :"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/pseudoInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <TextView
+        android:id="@+id/paraphe"
+        android:layout_width="0dp"
+        android:layout_height="72dp"
+        android:layout_marginBottom="67dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginStart="21dp"
+        android:text="Votre Pseudo sera conservé sur votre téléphone et uniquement sur votre téléphone, vous pouvez revenir le changer ici à tout moment."
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btnChangerPseudo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pseudoInput" />
+
+    <Button
+        android:id="@+id/btnChangerPseudo"
+        android:layout_width="0dp"
+        android:layout_height="67dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginStart="21dp"
+        android:text="Changer de pseudo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/paraphe" />
+
+    <EditText
+        android:id="@+id/pseudoInput"
+        android:layout_width="wrap_content"
+        android:layout_height="46dp"
+        android:layout_marginBottom="80dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/paraphe"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/paraphe01" />
+
+
 </android.support.constraint.ConstraintLayout>

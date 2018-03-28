@@ -1,13 +1,8 @@
 package marvel.app;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
@@ -51,8 +46,6 @@ public class SplashScreenActivity extends AppCompatActivity {
     private Thread threadJSON;
 
     private TextView textView;
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
@@ -76,21 +69,8 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         textView = (TextView)findViewById(R.id.textView);
 
-        boolean connected = false;
-        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(getApplicationContext().CONNECTIVITY_SERVICE);
-
-
-
-        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED || connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED)
-        {
-            connected = true;
-        }
-
-
-        if (datasource.getAllHeros().isEmpty() && connected) {
-
-            textView.setText("Connexion avec les Avengers...");
-
+        if (datasource.getAllHeros().isEmpty()) {
+            textView.setText("Chargement des données de l'API...");
             threadJSON = new Thread(new Runnable() {
 
                 @Override
@@ -145,13 +125,13 @@ public class SplashScreenActivity extends AppCompatActivity {
 
 
                             for (Heros unHeros : lesHeros) {
+                                Thread.sleep(200);
                                 textView.post(new Runnable() {
                                     public void run() {
 
-                                        textView.setText("Enregistrement de la liste des héros.\nVeuillez patienter...");
+                                        textView.setText("Ajout des données dans la base...");
                                     }
                                 });
-                                Thread.sleep(100);
 
                                 System.out.println(unHeros.getNom());
                                 datasource.insertHeroes(unHeros.getNom(), unHeros.getDesc(), unHeros.getUrlImage());
@@ -183,10 +163,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
             threadJSON.start();
         }
-        else if( !(datasource.getAllHeros().isEmpty()) )
-        {
-            textView.setText("Récupération de la liste des héros.\nVeuillez patienter...");
-
+        else{
             Timer timer = new Timer();
 
             timer.schedule(new TimerTask() {
@@ -197,11 +174,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                     finish();
                 }
             }, 2000);
-        }
-        else
-        {
-            textView.setText("Connexion avec les Avengers impossible!");
-            noConnectionMessage();
         }
     }
 
@@ -245,21 +217,5 @@ public class SplashScreenActivity extends AppCompatActivity {
         {
             rd.close();
         }
-    }
-
-    public void noConnectionMessage() {
-        new AlertDialog.Builder(this)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("Pas d'internet")
-                .setMessage("Veuillez activer votre conenxion internet pour continuer.")
-                .setPositiveButton("Continuer", new DialogInterface.OnClickListener()
-                {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-
-                })
-                .show();
     }
 }
