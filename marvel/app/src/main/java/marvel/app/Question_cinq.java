@@ -1,6 +1,6 @@
 package marvel.app;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +14,7 @@ public class Question_cinq extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.question_deux, container, false);
+        View rootView = inflater.inflate(R.layout.question_cinq, container, false);
         return rootView;
     }
 }

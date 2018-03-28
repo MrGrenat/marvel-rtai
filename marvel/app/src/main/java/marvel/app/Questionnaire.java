@@ -92,16 +92,16 @@ public class Questionnaire extends AppCompatActivity {
                     Question_un q1 = new Question_un();
                     return  q1;
                 case 1:
-                    Question_un q2 = new Question_un();
+                    Question_deux q2 = new Question_deux();
                     return  q2;
                 case 2:
-                    Question_un q3 = new Question_un();
+                    Question_trois q3 = new Question_trois();
                     return  q3;
                 case 3:
-                    Question_un q4 = new Question_un();
+                    Question_quatre q4 = new Question_quatre();
                     return  q4;
                 case 4:
-                    Question_un q5 = new Question_un();
+                    Question_cinq q5 = new Question_cinq();
                     return  q5;
                 default: return null;
             }

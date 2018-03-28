@@ -1,14 +1,14 @@
 package marvel.app;
 
-import android.app.Fragment;
+/**
+ * Created by wcourtade on 22/03/2018.
+ */
+
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-/**
- * Created by wcourtade on 22/03/2018.
- */
 
 public class Question_trois extends Fragment {
     @Override
