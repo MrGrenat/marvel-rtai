@@ -4,8 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="#c9161d"
     tools:context="marvel.app.MenuDemarrer">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        app:srcCompat="@drawable/logo" />
 
     <Button
         android:id="@+id/startButton"
@@ -14,7 +22,6 @@
         android:layout_marginBottom="28dp"
         android:background="@drawable/button_bg_stroke"
         android:fontFamily="@font/benton_sans_bold"
-        android:onClick="menuToGet"
         android:shadowColor="@android:color/black"
         android:shadowDx="1"
         android:shadowDy="1"
