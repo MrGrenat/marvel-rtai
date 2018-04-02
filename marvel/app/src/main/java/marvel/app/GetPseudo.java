@@ -12,12 +12,15 @@ import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -39,7 +42,7 @@ import static android.media.MediaRecorder.VideoSource.CAMERA;
 
 @SuppressLint("Registered")
 public class GetPseudo extends AppCompatActivity {
-
+    private Toolbar toolbar;
     private ImageView photo;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private EditText etPseudo;
@@ -48,9 +51,38 @@ public class GetPseudo extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Plein Ecran
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_pseudo);
+
+        // Création de l'objet toolbar
+        toolbar = findViewById(R.id.toolbar);
+
+        // Imposer l'absence de titre toolbar
+        toolbar.setTitle("");
+
+        //Définir la toolbar comme action bar
+        setSupportActionBar(toolbar);
+
+        //Création du Display retour fournit par les actions bars
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        //Selection puis Modification du Texte view
+        //de la toolbar = titre personnalisé selon la page
+        TextView title = findViewById(R.id.toolbar_title);
+        title.setText("Etape 1");
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // perform whatever you want on back arrow click
+                back();
+            }
+        });
 
         datasourceUtilisateur = new UtilisateursDataSource(getApplicationContext());
         datasourceUtilisateur.open();
@@ -153,6 +185,7 @@ public class GetPseudo extends AppCompatActivity {
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
         startActivityForResult(galleryIntent, 2);
+        cleanBackground();
     }
 
     //Fonction permettant de prendre une photo
@@ -160,7 +193,13 @@ public class GetPseudo extends AppCompatActivity {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            cleanBackground();
         }
+    }
+    
+    public void cleanBackground(){
+        ImageView photo = findViewById(R.id.iv_photo);
+        photo.setBackground(null);
     }
 
     //Fonction permettant de sauvegarder l'image que l'utilisateur vient de prendre
@@ -225,35 +264,20 @@ public class GetPseudo extends AppCompatActivity {
         }
     }
 
-    //Appel du menu
+     //Appel du menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
     }
-    private void back(){
-        this.finish();
-    }
-    private void openSettingsUser(){
-        Intent pageSettingsUser = new Intent(GetPseudo.this, SettingsUser.class);
-        startActivity(pageSettingsUser);
-    }
-    private void openSettingsLaw(){
-        Intent pageSettingsLaw = new Intent(this, SettingsLaw.class);
-        startActivity(pageSettingsLaw);
-    }
-    private void openHome(){
-        Intent pageSettingsLaw = new Intent(this, MenuDemarrer.class);
-        startActivity(pageSettingsLaw);
-    }
-    //gère le click sur une action de l'ActionBar
+
+
+    //Précise les fonctions à appeler selon le MenuItem selectionné par l'utilisateur
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.action_back:
-                back();
-                return true;
+
             case R.id.action_settings:
                 openSettingsUser();
                 return true;
@@ -265,6 +289,25 @@ public class GetPseudo extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    //Fonctions à lancer selon les événements de la navabar
+    private void openSettingsUser(){
+        Intent pageSettingsUser = new Intent(this, SettingsUser.class);
+        startActivity(pageSettingsUser);
+    }
+    private void openSettingsLaw(){
+        Intent pageSettingsLaw = new Intent(this, SettingsLaw.class);
+        startActivity(pageSettingsLaw);
+    }
+    private void openHome(){
+        Intent pageSettingsLaw = new Intent(this, MenuDemarrer.class);
+        startActivity(pageSettingsLaw);
+    }
+
+    private void back(){
+        this.finish();
     }
 
 }

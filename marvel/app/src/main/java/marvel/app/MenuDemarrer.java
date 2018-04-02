@@ -1,9 +1,11 @@
 package marvel.app;
 
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,19 +14,42 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.view.View;
+import android.widget.TextView;
 
 
 public class MenuDemarrer extends AppCompatActivity{
-    Button startBtn = null;
-    ImageView imageBackground;
-
+    private Button startBtn = null;
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Plein Ecran
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_demarrer);
+
+        // Création de l'objet toolbar
+
+        toolbar = findViewById(R.id.toolbar);
+
+        // Imposer l'absence de titre toolbar
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+
+        //Selection puis Modification du Texte view
+        //de la toolbar = titre personnalisé selon la page
+        TextView title = findViewById(R.id.toolbar_title);
+        title.setText("Accueil");
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // perform whatever you want on back arrow click
+                back();
+            }
+        });
+
         startBtn = (Button) findViewById(R.id.startButton);
         System.out.println(startBtn);
         System.out.println("ici");
@@ -42,30 +67,15 @@ public class MenuDemarrer extends AppCompatActivity{
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
+        menu.findItem(R.id.action_home).setVisible(false);
         return true;
     }
-    private void back(){
-        this.finish();
-    }
-    private void openSettingsUser(){
-        Intent pageSettingsUser = new Intent(MenuDemarrer.this, SettingsUser.class);
-        startActivity(pageSettingsUser);
-    }
-    private void openSettingsLaw(){
-        Intent pageSettingsLaw = new Intent(this, SettingsLaw.class);
-        startActivity(pageSettingsLaw);
-    }
-    private void openHome(){
-        Intent pageSettingsLaw = new Intent(this, MenuDemarrer.class);
-        startActivity(pageSettingsLaw);
-    }
-    //gère le click sur une action de l'ActionBar
+
+    //Précise les fonctions à appeler selon le MenuItem selectionné par l'utilisateur
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.action_back:
-                back();
-                return true;
+
             case R.id.action_settings:
                 openSettingsUser();
                 return true;
@@ -79,9 +89,21 @@ public class MenuDemarrer extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
+    //Fonctions à lancer selon les événements de la navabar
+    private void openSettingsUser(){
+        Intent pageSettingsUser = new Intent(MenuDemarrer.this, SettingsUser.class);
+        startActivity(pageSettingsUser);
+    }
+    private void openSettingsLaw(){
+        Intent pageSettingsLaw = new Intent(this, SettingsLaw.class);
+        startActivity(pageSettingsLaw);
+    }
+    private void openHome(){
+        Intent pageSettingsLaw = new Intent(this, MenuDemarrer.class);
+        startActivity(pageSettingsLaw);
+    }
 
-
-   // public void menuToGet (View view){
-     //   startActivity(new Intent(this, GetPseudoPage.class));
-    //}
+    private void back(){
+        this.finish();
+    }
 }
