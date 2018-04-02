@@ -1,7 +1,6 @@
 package marvel.app;
 
-
-import android.content.ClipData;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,18 +8,24 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.view.View;
 import android.widget.TextView;
 
+import marvel.DataSource.UtilisateursDataSource;
 
-public class MenuDemarrer extends AppCompatActivity{
-    private Button startBtn = null;
-    private Button mesHerosBtn = null;
+@SuppressLint("Registered")
+public class MesHeros extends AppCompatActivity {
     private Toolbar toolbar;
+    private ImageView photo;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private EditText etPseudo;
+    private String pseudo;
+    private UtilisateursDataSource datasourceUtilisateur;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Plein Ecran
@@ -28,20 +33,25 @@ public class MenuDemarrer extends AppCompatActivity{
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu_demarrer);
+        setContentView(R.layout.activity_mes_heros);
 
         // Création de l'objet toolbar
-
         toolbar = findViewById(R.id.toolbar);
 
         // Imposer l'absence de titre toolbar
         toolbar.setTitle("");
+
+        //Définir la toolbar comme action bar
         setSupportActionBar(toolbar);
+
+        //Création du Display retour fournit par les actions bars
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         //Selection puis Modification du Texte view
         //de la toolbar = titre personnalisé selon la page
         TextView title = findViewById(R.id.toolbar_title);
-        title.setText("Accueil");
+        title.setText("Mes Héros");
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,34 +61,23 @@ public class MenuDemarrer extends AppCompatActivity{
             }
         });
 
-        startBtn = (Button) findViewById(R.id.startButton);
-        startBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View startBtn) {
-                Intent pageGetPseudo = new Intent(MenuDemarrer.this, GetPseudo.class);
-                startActivity(pageGetPseudo);
-            }
-        });
-        mesHerosBtn = (Button) findViewById(R.id.herosButton);
-        mesHerosBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View startBtn) {
-                Intent pageMesHeros = new Intent(MenuDemarrer.this, MesHeros.class);
-                startActivity(pageMesHeros);
-            }
-        });
+        datasourceUtilisateur = new UtilisateursDataSource(getApplicationContext());
+        datasourceUtilisateur.open();
+
     }
+
 
     //Appel du menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
-        menu.findItem(R.id.action_home).setVisible(false);
         return true;
     }
 
-    //Précise les fonctions à appeler selon le MenuItem selectionné par l'utilisateur
+
+    //Précise les fonctions à appeler
+    //selon le MenuItem selectionné par l'utilisateur
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
@@ -99,9 +98,11 @@ public class MenuDemarrer extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
-    //Fonctions à lancer selon les événements de la navabar
+
+    //Fonctions à lancer
+    //selon les événements de la navabar
     private void openSettingsUser(){
-        Intent pageSettingsUser = new Intent(MenuDemarrer.this, SettingsUser.class);
+        Intent pageSettingsUser = new Intent(this, SettingsUser.class);
         startActivity(pageSettingsUser);
     }
     private void openSettingsLaw(){
@@ -122,4 +123,5 @@ public class MenuDemarrer extends AppCompatActivity{
     private void back(){
         this.finish();
     }
+
 }

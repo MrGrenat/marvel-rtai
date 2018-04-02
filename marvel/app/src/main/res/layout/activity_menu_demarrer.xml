@@ -38,7 +38,7 @@
 
         />
     <Button
-        android:id="@+id/heroesButton"
+        android:id="@+id/herosButton"
         android:layout_width="188dp"
         android:layout_height="70dp"
         android:layout_marginBottom="28dp"

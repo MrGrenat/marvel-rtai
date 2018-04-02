@@ -46,6 +46,9 @@
             android:name=".SettingsLaw"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".MesHeros"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".Questionnaire"
             android:label="@string/title_activity_questionnaire"
             android:theme="@style/AppTheme.NoActionBar"></activity>

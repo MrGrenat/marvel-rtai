@@ -144,6 +144,9 @@ public class SettingsUser  extends AppCompatActivity {
             case R.id.action_home:
                 openHome();
                 return true;
+            case R.id.action_settings3:
+                openMesHeros();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -155,6 +158,10 @@ public class SettingsUser  extends AppCompatActivity {
         startActivity(pageSettingsUser);
     }
     private void openSettingsLaw(){
+        Intent pageSettingsLaw = new Intent(this, SettingsLaw.class);
+        startActivity(pageSettingsLaw);
+    }
+    private void openMesHeros(){
         Intent pageSettingsLaw = new Intent(this, SettingsLaw.class);
         startActivity(pageSettingsLaw);
     }

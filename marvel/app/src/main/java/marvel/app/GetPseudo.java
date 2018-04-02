@@ -284,6 +284,10 @@ public class GetPseudo extends AppCompatActivity {
             case R.id.action_settings2:
                 openSettingsLaw();
                 return true;
+            case R.id.action_settings3:
+                openMesHeros();
+                return true;
+
             case R.id.action_home:
                 openHome();
                 return true;
@@ -301,6 +305,12 @@ public class GetPseudo extends AppCompatActivity {
         Intent pageSettingsLaw = new Intent(this, SettingsLaw.class);
         startActivity(pageSettingsLaw);
     }
+
+    private void openMesHeros(){
+        Intent pageSettingsUser = new Intent(this, MesHeros.class);
+        startActivity(pageSettingsUser);
+    }
+
     private void openHome(){
         Intent pageSettingsLaw = new Intent(this, MenuDemarrer.class);
         startActivity(pageSettingsLaw);
