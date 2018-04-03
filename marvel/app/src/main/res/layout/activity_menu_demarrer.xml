@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#c9161d"
+    tools:context="marvel.app.MenuDemarrer">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        app:srcCompat="@drawable/logo" />
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="188dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="120dp"
+        android:background="@drawable/button_bg_stroke"
+        android:fontFamily="@font/benton_sans_bold"
+        android:shadowColor="@android:color/black"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:text="Jouer"
+        android:textColor="#fff"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        />
+    <Button
+        android:id="@+id/herosButton"
+        android:layout_width="188dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/button_bg_stroke"
+        android:fontFamily="@font/benton_sans_bold"
+        android:shadowColor="@android:color/black"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:text="Mes héros"
+        android:textColor="#fff"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        />
+
+</android.support.constraint.ConstraintLayout>
