@@ -99,6 +99,7 @@ public class HerosDataSource {
         cursor.close();
         return heros;
     }
+
     private Heros cursorToHeros(Cursor cursor) {
         Heros heros = new Heros();
         heros.setId(cursor.getLong(0));

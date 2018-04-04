@@ -11,11 +11,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+import marvel.DataSource.AssociationsDataSource;
+import marvel.DataSource.PartiesDataSource;
 import marvel.DataSource.UtilisateursDataSource;
+import marvel.Tables.Association;
+import marvel.Tables.Partie;
 
 @SuppressLint("Registered")
 public class MesHeros extends AppCompatActivity {
@@ -24,7 +33,10 @@ public class MesHeros extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private EditText etPseudo;
     private String pseudo;
-    private UtilisateursDataSource datasourceUtilisateur;
+    private PartiesDataSource datasourceParties;
+    private AssociationsDataSource datasourceAssociations;
+    private Button testBtn;
+    private String timeStamp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +73,82 @@ public class MesHeros extends AppCompatActivity {
             }
         });
 
-        datasourceUtilisateur = new UtilisateursDataSource(getApplicationContext());
-        datasourceUtilisateur.open();
+        datasourceParties = new PartiesDataSource(getApplicationContext());
+        datasourceParties.open();
+
+        datasourceAssociations = new AssociationsDataSource(getApplicationContext());
+        datasourceAssociations.open();
+
+        List<Partie> parties = datasourceParties.getAllParties();
+        List<Association> assocs = datasourceAssociations.getAllAssocs();
+        if (parties != null){
+            System.out.println("Au moins une partie");
+            for (Partie p:parties){
+                System.out.println("Partie: "+p.getId());
+                if (p.getTermine()>=1 ) {
+                    /*
+                    System.out.println("Partie complete trouvée");
+                    System.out.println(p.getId());
+                    System.out.println(p.getLienPhoto());
+                    System.out.println(p.getTermine());
+                    System.out.println(p.getDate());*/
+
+                    if (assocs != null && !assocs.isEmpty()) {
+                        for (Association a:assocs){
+                            if(a.getIdEtranger() == p.getId()){
+
+                                System.out.println("");
+                                System.out.println("Partie : "+p.getId());
+                                System.out.println("Date : "+p.getDate());
+                                System.out.println("idHero : "+a.getIdHeros());
+                            }
+                        }
+
+                    }else{
+                        System.out.println("Pas de parties complètes trouvées");
+                    }
+                }
+
+            }
+        }else{
+            System.out.println("La table 'parties' est vide, commencer une nvlle partie afin de voir vos héros retournés");
+
+        }
+
+        testBtn = findViewById(R.id.detail);
+        testBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View detail) {
+                testInsertTablePartie();
+            }
+        });
+
 
     }
 
+    public void testInsertTablePartie(){
+        Partie partieToInsert = new Partie();
+        partieToInsert.setLienPhoto("drawable/exemple.png");
+        partieToInsert.setId(1);
+        partieToInsert.setTermine(1);
+        timeStamp = new SimpleDateFormat("dd.MM.yyyy.HH.mm.ss").format(new Timestamp(System.currentTimeMillis()));
+        partieToInsert.setDate(timeStamp);
+
+        datasourceParties = new PartiesDataSource(getApplicationContext());
+        datasourceParties.open();
+        datasourceParties.insertPartie(partieToInsert);
+
+        Association assocToInsert = new Association();
+        assocToInsert.setIdHeros(1);
+        assocToInsert.setIdEtranger(1);
+
+        datasourceAssociations = new AssociationsDataSource(getApplicationContext());
+        datasourceAssociations.open();
+        datasourceAssociations.insertAssociation(assocToInsert);
+
+        System.out.println("Création d'une nouvelle partie");
+
+    }
 
     //Appel du menu
     @Override

@@ -35,9 +35,9 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String CT_CARACTERISTIQUES_ID = "_idContientCarac";
 
     //TABLE CORRESPOND : HEROS <-> UTILISATEUR
-    public static final String TABLE_CORRESPOND = "correspond";
-    public static final String CORR_ID_HEROS = "_idCorrespondHeros";
-    public static final String CORR_ID_UTILISATEUR = "_idCorrespondUtilisateur";
+    //public static final String TABLE_CORRESPOND = "correspond";
+    //public static final String CORR_ID_HEROS = "_idCorrespondHeros";
+    //public static final String CORR_ID_UTILISATEUR = "_idCorrespondUtilisateur";
 
     //TABLE COMICS
     public static final String TABLE_COMICS = "comics";
@@ -49,7 +49,19 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String SERIES_ID = "_idSeries";
     public static final String SERIES_NOM = "nomSeries";
 
-    //TABLE EST_PRESENT_COMICS : HEORS <-> COMICS
+    //TABLE PARTIE
+    public static final String TABLE_PARTIE= "partie";
+    public static final String PARTIE_ID = "_idPartie";
+    public static final String PARTIE_PHOTO = "photoPartie";
+    public static final String PARTIE_DATE = "datePartie";
+    public static final String PARTIE_ISTERMINE = "isTerminePartie";
+
+    //TABLE EST_PRESENT_COMICS : HEROS <-> COMICS
+    public static final String TABLE_EST_ASSOCIE_PARTIE = "estAssociePartie";
+    public static final String EAC_PARTIE_ID = "_idEstAssociePartie";
+    public static final String EAC_HEROS_ID = "_idEstAssocieHeros";
+
+    //TABLE EST_PRESENT_COMICS : HEROS <-> COMICS
     public static final String TABLE_EST_PRESENT_COMICS = "estPresentComics";
     public static final String EPC_COMICS_ID = "_idEstPresentComics";
     public static final String EPC_HEROS_ID = "_idEstPresentHeros";
@@ -88,13 +100,32 @@ public class DbHelper extends SQLiteOpenHelper {
             + CT_CARACTERISTIQUES_ID
             + " integer, "
             + " primary key("+CT_HEROS_ID+", "+CT_CARACTERISTIQUES_ID+" ));";
-    private static final String DATABASE_CORRESPOND =
+
+    //private static final String DATABASE_CORRESPOND =
+    //        "create table "
+    //        + TABLE_CORRESPOND + "(" + CORR_ID_HEROS
+    //        + " integer, "
+    //        + CORR_ID_UTILISATEUR
+    //        + " integer,"
+    //        + " primary key("+CORR_ID_HEROS+", "+CORR_ID_UTILISATEUR+" ));";
+
+    private static final String DATABASE_PARTIE =
             "create table "
-            + TABLE_CORRESPOND + "(" + CORR_ID_HEROS
-            + " integer, "
-            + CORR_ID_UTILISATEUR
-            + " integer,"
-            + " primary key("+CORR_ID_HEROS+", "+CORR_ID_UTILISATEUR+" ));";;
+                    + TABLE_PARTIE + "(" + PARTIE_ID
+                    + " integer primary key autoincrement, " + PARTIE_PHOTO
+                    + " text not null, " + PARTIE_DATE
+                    + " datetime default CURRENT_TIMESTAMP, " + PARTIE_ISTERMINE
+                    + " integer default 0);";
+
+    private static final String DATABASE_ASSOCIE =
+            "create table "
+                    + TABLE_EST_ASSOCIE_PARTIE + "(" + EAC_PARTIE_ID
+                    + " integer,"
+                    + EAC_HEROS_ID
+                    + " integer, "
+                    + " primary key("+EAC_PARTIE_ID+", "+EAC_HEROS_ID+" ));";
+
+
     private static final String DATABASE_COMICS =
             "create table "
             + TABLE_COMICS + "(" + COMICS_ID
@@ -134,10 +165,11 @@ public class DbHelper extends SQLiteOpenHelper {
         database.execSQL(DATABASE_CARACTERISTIQUES);
         database.execSQL(DATABASE_COMICS);
         database.execSQL(DATABASE_CONTIENT);
-        database.execSQL(DATABASE_CORRESPOND);
         database.execSQL(DATABASE_UTILISATEUR);
         database.execSQL(DATABASE_EST_PRESENT_COMICS);
         database.execSQL(DATABASE_EST_PRESENT_SERIES);
+        database.execSQL(DATABASE_PARTIE);
+        database.execSQL(DATABASE_ASSOCIE);
 
 
     }
@@ -152,10 +184,11 @@ public class DbHelper extends SQLiteOpenHelper {
         database.execSQL("DROP TABLE IF EXISTS " + TABLE_CARACTERISTIQUES);
         database.execSQL("DROP TABLE IF EXISTS " + TABLE_COMICS);
         database.execSQL("DROP TABLE IF EXISTS " + TABLE_CONTIENT);
-        database.execSQL("DROP TABLE IF EXISTS " + TABLE_CORRESPOND);
         database.execSQL("DROP TABLE IF EXISTS " + TABLE_UTILISATEUR);
         database.execSQL("DROP TABLE IF EXISTS " + TABLE_EST_PRESENT_COMICS);
         database.execSQL("DROP TABLE IF EXISTS " + TABLE_EST_PRESENT_SERIES);
+        database.execSQL("DROP TABLE IF EXISTS " + TABLE_PARTIE);
+        database.execSQL("DROP TABLE IF EXISTS " + TABLE_EST_ASSOCIE_PARTIE);
         onCreate(database);
     }
 
@@ -204,6 +237,17 @@ public class DbHelper extends SQLiteOpenHelper {
 
         database.execSQL("DELETE FROM '" + TABLE_EST_PRESENT_COMICS+ "'");
         database.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME='" + TABLE_EST_PRESENT_COMICS + "'");
+
+    }
+    public void onUpgradeParties(SQLiteDatabase database, int versionCourante, int nouvelleVersion) {
+        Log.w(DbHelper.class.getName(),
+                "Upgrading database from version " + versionCourante + " to "
+                        + nouvelleVersion + ", which will clean table COMICS & EPC_COMICS");
+        database.execSQL("DELETE FROM '" + TABLE_PARTIE + "'");
+        database.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME='" + TABLE_PARTIE + "'");
+
+        database.execSQL("DELETE FROM '" + TABLE_EST_ASSOCIE_PARTIE+ "'");
+        database.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME='" + TABLE_EST_ASSOCIE_PARTIE + "'");
     }
 
 }
