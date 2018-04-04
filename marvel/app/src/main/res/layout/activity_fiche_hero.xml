@@ -13,7 +13,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="55dp"
         android:fontFamily="sans-serif-condensed"
-        android:text="NOM HERO"
+        android:text="NOM HEROS"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,8 +22,8 @@
         android:id="@+id/imageView2"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6"
         app:srcCompat="@drawable/spiderman" />
@@ -50,7 +50,7 @@
                 android:layout_width="315dp"
                 android:layout_height="76dp"
                 android:layout_marginTop="20dp"
-                android:text="LE HERO APPARAIT DANS :"
+                android:text="LE HEROS APPARAIT DANS :"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_carac" />
 

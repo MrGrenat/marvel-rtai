@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.view.View;
 import android.widget.TextView;
 
+import marvel.Reponses;
+
 
 public class MenuDemarrer extends AppCompatActivity{
     private Button startBtn = null;
@@ -67,6 +69,8 @@ public class MenuDemarrer extends AppCompatActivity{
                 startActivity(pageMesHeros);
             }
         });
+
+
     }
 
     //Appel du menu

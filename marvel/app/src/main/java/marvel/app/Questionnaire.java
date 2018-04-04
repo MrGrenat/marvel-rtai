@@ -1,6 +1,7 @@
 package marvel.app;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -58,7 +59,6 @@ public class Questionnaire extends AppCompatActivity {
         setContentView(R.layout.activity_questionnaire);
 
         Button btnValider = (Button) findViewById(R.id.btnValider);
-        btnValider.setEnabled(false);
 
         //Reset les réponses
         Reponses.reset();
@@ -85,6 +85,24 @@ public class Questionnaire extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        btnValider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(Reponses.isOk())
+                {
+                    Intent pageConfirm = new Intent(Questionnaire.this, Confirmation.class);
+                    startActivity(pageConfirm);
+                }
+                else
+                {
+                    Toast msgError = Toast.makeText(getApplicationContext(), "Vous devez répondre aux 5 questions", Toast.LENGTH_SHORT);
+                    msgError.show();
+                }
+
+            }
+        });
     }
 
 
@@ -187,7 +205,7 @@ public class Questionnaire extends AppCompatActivity {
         q = "Vous voyez une maison en feu, que faites vous ?";
         rep1 = "J'appelle les pompiers";
         rep2 = "Je fonce aider les gens à l'intérieur";
-        rep3 = "Je dis au gens autour de m’aider à les sauvers";
+        rep3 = "Je dis au gens autour de m’aider à les sauver";
         rep4 = "Je fais une vidéo";
 
         reps = new ArrayList<>();
@@ -199,7 +217,7 @@ public class Questionnaire extends AppCompatActivity {
         questions.put(q, reps);
 
         //Question 3
-        q = "Une personne âgée se fait voler son sac à main, votre réaction";
+        q = "Une personne agée se fait voler son sac à main, votre réaction ?";
         rep1 = "J’appelle la police";
         rep2 = "J’essai de récupérer son sac";
         rep3 = "J’ordonne au voleur de s'arrêter";
@@ -216,9 +234,9 @@ public class Questionnaire extends AppCompatActivity {
         //Question 4
         q = "Enfant, vous étiez";
         rep1 = "Travailleur";
-        rep2 = "Le protecteur";
+        rep2 = "Protecteur";
         rep3 = "Populaire";
-        rep4 = "La brute";
+        rep4 = "Brutal";
 
         reps = new ArrayList<>();
         reps.add(rep1);
@@ -230,7 +248,7 @@ public class Questionnaire extends AppCompatActivity {
 
         //Question 5
         q = "Votre meilleur ami(e) est";
-        rep1 = "Une personne normal";
+        rep1 = "Une personne normale";
         rep2 = "La justice";
         rep3 = "Une star";
         rep4 = "La mort";
@@ -245,7 +263,7 @@ public class Questionnaire extends AppCompatActivity {
 
         //Question 6
         q = "Qui est un héros ?";
-        rep1 = "Les pompiers / la police / le samu";
+        rep1 = "Les pompiers / la police / le SAMU";
         rep2 = "Vous même";
         rep3 = "Les gens disent vous";
         rep4 = "Les chasseurs de prime";
@@ -274,11 +292,11 @@ public class Questionnaire extends AppCompatActivity {
         questions.put(q, reps);
 
         //Question 8
-        q = "Votre costume de super héro se compose de";
-        rep1 = "Des gadgets sophistiqués";
-        rep2 = "Une armure solide";
+        q = "Votre costume de super héros se composerait";
+        rep1 = "De gadgets sophistiqués";
+        rep2 = "D'une armure solide";
         rep3 = "Pas besoin de costume";
-        rep4 = "Un masque de film d’horreur";
+        rep4 = "D'un masque de film d’horreur";
 
         reps = new ArrayList<>();
         reps.add(rep1);
@@ -307,7 +325,7 @@ public class Questionnaire extends AppCompatActivity {
         q = "Un animal abandonné semble blessé, que faîtes vous";
         rep1 = "J’utilise une aiguille et un caillou pour le sauver ";
         rep2 = "Je le porte jusqu’au vétérinaire";
-        rep3 = "Je créer une collecte de fond et recherche son propriétaire";
+        rep3 = "Je crée une collecte de fond et recherche son propriétaire";
         rep4 = "Je vais pouvoir me faire un nouveau manteau en fourrure !";
 
         reps = new ArrayList<>();

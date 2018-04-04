@@ -25,7 +25,12 @@ public class HerosDataSource {
             DbHelper.HEROS_ID,
             DbHelper.HEROS_NOM,
             DbHelper.HEROS_DESC,
-            DbHelper.HEROS_IMAGE
+            DbHelper.HEROS_IMAGE,
+            DbHelper.HEROS_HEROIQUE,
+            DbHelper.HEROS_INTELLIGENT,
+            DbHelper.HEROS_CHARISMATIQUE,
+            DbHelper.HEROS_PSYCHOPATHE
+
     };
 
     public HerosDataSource(Context context){
@@ -58,10 +63,12 @@ public class HerosDataSource {
     }
 
     public void insertHeroes(String heros, String desc, String imgUrl){
-        ContentValues values = new ContentValues();
-        values.put(DbHelper.HEROS_NOM, heros);
-        values.put(DbHelper.HEROS_DESC, desc);
-        values.put(DbHelper.HEROS_IMAGE, imgUrl);
+            ContentValues values = new ContentValues();
+            values.put(DbHelper.HEROS_NOM, heros);
+            values.put(DbHelper.HEROS_DESC, desc);
+            values.put(DbHelper.HEROS_IMAGE, imgUrl);
+
+
 
         long insertId = database.insert(DbHelper.TABLE_HEROS, null,values);
         Cursor cursor = database.query(DbHelper.TABLE_HEROS, allColumns,
@@ -72,6 +79,23 @@ public class HerosDataSource {
         cursor.close();
     }
 
+    public void updateCarac(String name, int heroique, int intelligent, int charismatique, int psychopathe){
+        ContentValues values = new ContentValues();
+        values.put(DbHelper.HEROS_HEROIQUE,heroique);
+        values.put(DbHelper.HEROS_INTELLIGENT,intelligent);
+        values.put(DbHelper.HEROS_CHARISMATIQUE,charismatique);
+        values.put(DbHelper.HEROS_PSYCHOPATHE,psychopathe);
+
+        String where = DbHelper.HEROS_NOM + "= '"+ name + "'";
+
+        try{
+            database.update(DbHelper.TABLE_HEROS, values, where, null);
+        }
+        catch (Exception e){
+            //String error =  e.getMessage().toString();
+        }
+
+    }
     public void deleteHeros(Heros heros) {
         long id = heros.getId();
         System.out.println("Heros deleted with id: " + id);

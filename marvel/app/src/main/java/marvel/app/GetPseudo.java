@@ -2,9 +2,13 @@ package marvel.app;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
@@ -29,13 +33,18 @@ import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 
 import marvel.DataSource.HerosDataSource;
+import marvel.DataSource.PartiesDataSource;
 import marvel.DataSource.UtilisateursDataSource;
+import marvel.Tables.Partie;
+import marvel.Tables.PartieStatic;
 import marvel.Tables.Utilisateurs;
 
 import static android.media.MediaRecorder.VideoSource.CAMERA;
@@ -43,11 +52,19 @@ import static android.media.MediaRecorder.VideoSource.CAMERA;
 @SuppressLint("Registered")
 public class GetPseudo extends AppCompatActivity {
     private Toolbar toolbar;
+
     private ImageView photo;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
+
     private EditText etPseudo;
     private String pseudo;
+    private String path;
+
     private UtilisateursDataSource datasourceUtilisateur;
+    private PartiesDataSource datasourceParties;
+
+    private Partie partie;
+    private PartieStatic partieStatic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,10 +126,14 @@ public class GetPseudo extends AppCompatActivity {
 
             etPseudo.setVisibility(View.INVISIBLE);
             ((TextView)findViewById(R.id.tv_pseudo2)).setVisibility(View.INVISIBLE);
-            ((TextView)findViewById(R.id.tv_pseudo)).setText("Bonjour "+pseudo);
+            ((TextView)findViewById(R.id.tv_pseudo)).setText("\nBonjour "+pseudo);
         }
 
         photo = (ImageView)findViewById(R.id.iv_photo);
+
+        //test récupération image
+        loadImageFromStorage("data/data/marvel.app/app_imageDir/");
+
         //Appel de la fonction showPictureDialog au clic sur le bouton Camera
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,8 +158,7 @@ public class GetPseudo extends AppCompatActivity {
             return;
         }
         //si l'utilisateur n'entre pas de photo
-        else if(null == photo.getDrawable())
-        {
+        else if(null == photo.getDrawable()) {
             Toast errorToast = Toast.makeText(getApplicationContext(), "Veuillez sélectionner une photo", Toast.LENGTH_SHORT);
             errorToast.show();
         }
@@ -150,9 +170,22 @@ public class GetPseudo extends AppCompatActivity {
                 datasourceUtilisateur.insertUtilisateurs(pseudo);
             }
 
-            Intent pageQuestionnaire = new Intent(GetPseudo.this, Confirmation.class);
+            System.out.println("Création du nouvelle partie..");
+
+            partie = new Partie();
+            partie.setLienPhoto(path);
+            partie.setTermine(0);
+
+            partieStatic = new PartieStatic();
+            partieStatic.setLienPhoto(path);
+            partieStatic.setTermine(0);
+
+            datasourceParties = new PartiesDataSource(getApplicationContext());
+            datasourceParties.open();
+            datasourceParties.insertPartie(partie);
+
+            Intent pageQuestionnaire = new Intent(GetPseudo.this, Questionnaire.class);
             startActivity(pageQuestionnaire);
-            finish();
         }
     }
 
@@ -183,7 +216,7 @@ public class GetPseudo extends AppCompatActivity {
     //Fonction permettant de sélectionnez une photo depuis la galerie
     public void choosePhotoFromGallary() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
         startActivityForResult(galleryIntent, 2);
         cleanBackground();
@@ -203,35 +236,47 @@ public class GetPseudo extends AppCompatActivity {
         photo.setBackground(null);
     }
 
-    //Fonction permettant de sauvegarder l'image que l'utilisateur vient de prendre
-    public String saveImage(Bitmap myBitmap) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-        File wallpaperDirectory = new File(
-                Environment.getExternalStorageDirectory() + "MyMarvelHero");
-        // have the object build the directory structure, if needed.
-        if (!wallpaperDirectory.exists()) {
-            wallpaperDirectory.mkdirs();
-        }
+    private String saveToInternalStorage(Bitmap bitmapImage){
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        // path to /data/data/yourapp/app_data/imageDir
+        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+        // Create imageDir
+        File mypath=new File(directory,Calendar.getInstance()
+                .getTimeInMillis()+".jpg");
 
+        FileOutputStream fos = null;
         try {
-            File f = new File(wallpaperDirectory, Calendar.getInstance()
-                    .getTimeInMillis() + ".jpg");
-            f.createNewFile();
-            FileOutputStream fo = new FileOutputStream(f);
-            fo.write(bytes.toByteArray());
-            MediaScannerConnection.scanFile(this,
-                    new String[]{f.getPath()},
-                    new String[]{"image/jpeg"}, null);
-            fo.close();
-            Log.d("TAG", "File Saved::--->" + f.getAbsolutePath());
-
-            return f.getAbsolutePath();
-        } catch (IOException e1) {
-            e1.printStackTrace();
+            fos = new FileOutputStream(mypath);
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            return mypath.getPath();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        return "";
+        return directory.getAbsolutePath();
     }
+
+    private void loadImageFromStorage(String path)
+    {
+        try {
+            File f=new File(path, "photopartie.jpg");
+            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+
+            System.out.println("Bitmap : "+b);
+            photo.setImageBitmap(b);
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
 
     //Gestion des erreurs / résultat de la selection de la photo
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
@@ -243,8 +288,12 @@ public class GetPseudo extends AppCompatActivity {
             if (data != null) {
                 Uri contentURI = data.getData();
                 try {
+                    System.out.println("Image depuis la galerie");
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
-                    String path = saveImage(bitmap);
+
+                    path = saveToInternalStorage(bitmap);
+                    System.out.println("Path retourned: "+path);
+
                     Toast.makeText(GetPseudo.this, "Image enregistrée !", Toast.LENGTH_SHORT).show();
                     photo.setImageBitmap(bitmap);
 
@@ -252,18 +301,28 @@ public class GetPseudo extends AppCompatActivity {
                     e.printStackTrace();
                     Toast.makeText(GetPseudo.this, "Une erreur s'est produite, veuillez recommencer!", Toast.LENGTH_SHORT).show();
                 }
+
             }
 
         } else if (requestCode == REQUEST_IMAGE_CAPTURE) {
             if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+                System.out.println("Nouvelle photo image");
                 Bundle extras = data.getExtras();
+
                 //on récupère l'image dans la variable imageBitmap
                 Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+                path = saveToInternalStorage(imageBitmap);
+                System.out.println("Path retourneeed: "+path);
+
                 //on change l'image sur la page
                 photo.setImageBitmap(imageBitmap);
+
+                System.out.println("PATH DE LA GALERIE: "+path);
             }
         }
     }
+
 
      //Appel du menu
     @Override
@@ -302,6 +361,7 @@ public class GetPseudo extends AppCompatActivity {
         Intent pageSettingsUser = new Intent(this, SettingsUser.class);
         startActivity(pageSettingsUser);
     }
+
     private void openSettingsLaw(){
         Intent pageSettingsLaw = new Intent(this, SettingsLaw.class);
         startActivity(pageSettingsLaw);

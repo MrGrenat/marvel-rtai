@@ -34,12 +34,13 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/rA"
+                android:id="@+id/repA"
                 android:layout_width="350dp"
                 android:layout_height="21dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/colorRed"
                 android:text="Premier réflexe : j'ai tweeté"
+                android:textColor="@android:color/white"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/qA" />
@@ -51,7 +52,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@android:color/darker_gray"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rA" />
+                app:layout_constraintTop_toBottomOf="@+id/repA" />
 
             <TextView
                 android:id="@+id/qB"
@@ -65,12 +66,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/view3" />
 
             <TextView
-                android:id="@+id/rB"
+                android:id="@+id/repB"
                 android:layout_width="350dp"
                 android:layout_height="21dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/colorLBlue"
                 android:text="Je fonce aider les gens à l'intérieur"
+                android:textColor="@color/colorWhite"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/qB" />
@@ -82,7 +84,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@android:color/darker_gray"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rB" />
+                app:layout_constraintTop_toBottomOf="@+id/repB" />
 
             <TextView
                 android:id="@+id/qC"
@@ -96,12 +98,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/view4" />
 
             <TextView
-                android:id="@+id/rC"
+                android:id="@+id/repC"
                 android:layout_width="350dp"
                 android:layout_height="21dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/colorRed"
                 android:text="Un masque de film d’horreur"
+                android:textColor="@color/colorWhite"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/qC" />
@@ -113,7 +116,7 @@
                 android:layout_marginTop="20dp"
                 android:background="#aaa"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rC" />
+                app:layout_constraintTop_toBottomOf="@+id/repC" />
 
             <TextView
                 android:id="@+id/qD"
@@ -127,12 +130,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/view5" />
 
             <TextView
-                android:id="@+id/rD"
+                android:id="@+id/repD"
                 android:layout_width="350dp"
                 android:layout_height="21dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/colorOrange"
                 android:text="Je passe trop de temps dans la salle de bain"
+                android:textColor="@android:color/white"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/qD" />
@@ -144,7 +148,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@android:color/darker_gray"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rD" />
+                app:layout_constraintTop_toBottomOf="@+id/repD" />
 
             <TextView
                 android:id="@+id/qE"
@@ -158,12 +162,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/view6" />
 
             <TextView
-                android:id="@+id/rE"
+                android:id="@+id/repE"
                 android:layout_width="350dp"
                 android:layout_height="21dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/colorRed"
                 android:text="Cool un nouveau manteau en fourrure !"
+                android:textColor="@color/colorWhite"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/qE" />

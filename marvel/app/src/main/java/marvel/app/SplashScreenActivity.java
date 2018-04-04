@@ -167,6 +167,49 @@ public class SplashScreenActivity extends AppCompatActivity {
                                     datasourceComics.insertComics(comics.getNom());
 
                                 }
+
+                                if(unHeros.getNom().equals("Iron Man")){
+                                    unHeros.setCarateristiques(4,5,5,1);
+                                    datasource.updateCarac(unHeros.getNom(),4,5,5,1);
+                                }
+                                else if(unHeros.getNom().equals("Deadpool")){
+                                    unHeros.setCarateristiques(2,3,4,5);
+                                    datasource.updateCarac(unHeros.getNom(),2,3,4,5);
+                                }
+                                else if(unHeros.getNom().equals("Captain America")){
+                                    unHeros.setCarateristiques(5,3,3,0);
+                                    datasource.updateCarac(unHeros.getNom(),5,3,3,0);
+                                }
+                                else if(unHeros.getNom().equals("Black Widow")){
+                                    unHeros.setCarateristiques(3,4,2,3);
+                                    datasource.updateCarac(unHeros.getNom(),3,4,2,3);
+                                }
+                                else if(unHeros.getNom().equals("HULK")){
+                                    unHeros.setCarateristiques(2,1,1,4);
+                                    datasource.updateCarac(unHeros.getNom(),2,1,1,4);
+                                }
+                                else if(unHeros.getNom().equals("Rogue")){
+                                    unHeros.setCarateristiques(3,3,3,2);
+                                    datasource.updateCarac(unHeros.getNom(),3,3,3,2);
+                                }
+                                else if(unHeros.getNom().equals("3-D Man")){
+                                    unHeros.setCarateristiques(2,4,1,2);
+                                    datasource.updateCarac(unHeros.getNom(),2,4,1,2);
+                                }
+                                else if(unHeros.getNom().equals("Squirrel Girl")){
+                                    unHeros.setCarateristiques(3,2,4,3);
+                                    datasource.updateCarac(unHeros.getNom(),3,2,4,3);
+                                }
+                                else if(unHeros.getNom().equals("Nova")){
+                                    unHeros.setCarateristiques(2,3,2,1);
+                                    datasource.updateCarac(unHeros.getNom(),2,3,2,1);
+                                }
+                                else if(unHeros.getNom().equals("Falcon")){
+                                    unHeros.setCarateristiques(3,4,2,0);
+                                    datasource.updateCarac(unHeros.getNom(),3,4,2,0);
+                                }
+
+                                System.out.println(unHeros.toString());
                             }
 
                             Intent pageMenuDemarrer = new Intent(SplashScreenActivity.this, MenuDemarrer.class);

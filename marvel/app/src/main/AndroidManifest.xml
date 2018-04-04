@@ -52,7 +52,11 @@
             android:name=".Questionnaire"
             android:label="@string/title_activity_questionnaire"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".FicheHeroActivity"></activity>
+        <activity android:name=".TonHerosActivity"
+        android:screenOrientation="portrait" />
+        <activity android:name=".FicheHeroActivity"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

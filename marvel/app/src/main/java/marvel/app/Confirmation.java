@@ -6,6 +6,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import marvel.JSON.enums.ECaracteristiques;
+import marvel.Reponses;
 
 public class Confirmation extends AppCompatActivity {
 
@@ -13,6 +19,100 @@ public class Confirmation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirmation);
+
+        TextView qA = findViewById(R.id.qA);
+        TextView repA = findViewById(R.id.repA);
+
+        TextView qB = findViewById(R.id.qB);
+        TextView repB = findViewById(R.id.repB);
+
+        TextView qC = findViewById(R.id.qC);
+        TextView repC = findViewById(R.id.repC);
+
+        TextView qD = findViewById(R.id.qD);
+        TextView repD = findViewById(R.id.repD);
+
+        TextView qE = findViewById(R.id.qE);
+        TextView repE = findViewById(R.id.repE);
+
+        qA.setText(Reponses.getqA());
+        qB.setText(Reponses.getqB());
+        qC.setText(Reponses.getqC());
+        qD.setText(Reponses.getqD());
+        qE.setText(Reponses.getqE());
+
+        repA.setText(Reponses.getRepAValue());
+        repB.setText(Reponses.getRepBValue());
+        repC.setText(Reponses.getRepCValue());
+        repD.setText(Reponses.getRepDValue());
+        repE.setText(Reponses.getRepEValue());
+
+
+        if(Reponses.getRepA().equals(ECaracteristiques.INTELLIGENT))
+            repA.setBackgroundColor(getResources().getColor(R.color.colorRed));
+        else if(Reponses.getRepA().equals(ECaracteristiques.HEROIQUE))
+            repA.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+        else if(Reponses.getRepA().equals(ECaracteristiques.CHARISMATIQUE))
+            repA.setBackgroundColor(getResources().getColor(R.color.colorLBlue));
+        else if(Reponses.getRepA().equals(ECaracteristiques.PSYCHOPATHE))
+            repA.setBackgroundColor(getResources().getColor(R.color.colorOrange));
+
+        if(Reponses.getRepB().equals(ECaracteristiques.INTELLIGENT))
+            repB.setBackgroundColor(getResources().getColor(R.color.colorRed));
+        else if(Reponses.getRepB().equals(ECaracteristiques.HEROIQUE))
+            repB.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+        else if(Reponses.getRepB().equals(ECaracteristiques.CHARISMATIQUE))
+            repB.setBackgroundColor(getResources().getColor(R.color.colorLBlue));
+        else if(Reponses.getRepB().equals(ECaracteristiques.PSYCHOPATHE))
+            repB.setBackgroundColor(getResources().getColor(R.color.colorOrange));
+
+        if(Reponses.getRepC().equals(ECaracteristiques.INTELLIGENT))
+            repB.setBackgroundColor(getResources().getColor(R.color.colorRed));
+        else if(Reponses.getRepC().equals(ECaracteristiques.HEROIQUE))
+            repC.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+        else if(Reponses.getRepC().equals(ECaracteristiques.CHARISMATIQUE))
+            repC.setBackgroundColor(getResources().getColor(R.color.colorLBlue));
+        else if(Reponses.getRepC().equals(ECaracteristiques.PSYCHOPATHE))
+            repC.setBackgroundColor(getResources().getColor(R.color.colorOrange));
+
+        if(Reponses.getRepD().equals(ECaracteristiques.INTELLIGENT))
+            repD.setBackgroundColor(getResources().getColor(R.color.colorRed));
+        else if(Reponses.getRepD().equals(ECaracteristiques.HEROIQUE))
+            repD.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+        else if(Reponses.getRepD().equals(ECaracteristiques.CHARISMATIQUE))
+            repD.setBackgroundColor(getResources().getColor(R.color.colorLBlue));
+        else if(Reponses.getRepD().equals(ECaracteristiques.PSYCHOPATHE))
+            repD.setBackgroundColor(getResources().getColor(R.color.colorOrange));
+
+        if(Reponses.getRepE().equals(ECaracteristiques.INTELLIGENT))
+            repE.setBackgroundColor(getResources().getColor(R.color.colorRed));
+        else if(Reponses.getRepE().equals(ECaracteristiques.HEROIQUE))
+            repE.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+        else if(Reponses.getRepE().equals(ECaracteristiques.CHARISMATIQUE))
+            repE.setBackgroundColor(getResources().getColor(R.color.colorLBlue));
+        else if(Reponses.getRepE().equals(ECaracteristiques.PSYCHOPATHE))
+            repE.setBackgroundColor(getResources().getColor(R.color.colorOrange));
+
+        Button btnModif = (Button) findViewById(R.id.bt_modifier);
+
+        btnModif.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        Button btnValider = (Button) findViewById(R.id.bt_valider);
+
+        btnValider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent pageTonHeros = new Intent(Confirmation.this, TonHerosActivity.class);
+                startActivity(pageTonHeros);
+                finish();
+            }
+        });
+
     }
 
     //Appel du menu

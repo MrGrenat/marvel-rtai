@@ -28,17 +28,37 @@ public class Question_quatre extends Fragment{
         this.reponses = new ArrayList<>();
         this.question = question;
         this.reponses = reponses;
+        Reponses.setqD(question);
+        System.out.println(Reponses.getqD());
+
+
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,  Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.question_quatre, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.question_quatre, container, false);
 
-        TextView title = rootView.findViewById(R.id.lblQuestion);
-        Button repA = (Button) rootView.findViewById(R.id.repBtnA);
-        Button repB = (Button) rootView.findViewById(R.id.repBtnB);
-        Button repC = (Button) rootView.findViewById(R.id.repBtnC);
-        Button repD = (Button) rootView.findViewById(R.id.repBtnD);
+        if(Reponses.getRepD() != null)
+        {
+            if(Reponses.getRepD().equals(ECaracteristiques.INTELLIGENT))
+                view = inflater.inflate(R.layout.reponse_a, container, false);
+            else if(Reponses.getRepD().equals(ECaracteristiques.HEROIQUE))
+                view = inflater.inflate(R.layout.reponse_b, container, false);
+            else if(Reponses.getRepD().equals(ECaracteristiques.CHARISMATIQUE))
+                view = inflater.inflate(R.layout.reponse_c, container, false);
+            else if(Reponses.getRepD().equals(ECaracteristiques.PSYCHOPATHE))
+                view = inflater.inflate(R.layout.reponse_d, container, false);
+
+            TextView tvNbr = view.findViewById(R.id.tvNumber);
+            tvNbr.setText("4/5");
+        }
+
+
+        TextView title = view.findViewById(R.id.lblQuestion);
+        final Button repA = (Button) view.findViewById(R.id.repBtnA);
+        final Button repB = (Button) view.findViewById(R.id.repBtnB);
+        final Button repC = (Button) view.findViewById(R.id.repBtnC);
+        final Button repD = (Button) view.findViewById(R.id.repBtnD);
 
         title.setText(this.question);
         repA.setText(this.reponses.get(0));
@@ -47,19 +67,19 @@ public class Question_quatre extends Fragment{
         repD.setText(this.reponses.get(3));
 
 
-        View viewMain = inflater.inflate(R.layout.activity_questionnaire, container, false);
-
-        final Button btnValider = viewMain.findViewById(R.id.btnValider);
-
         repA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
                 Reponses.setRepD(ECaracteristiques.INTELLIGENT);
-                Toast msgToast = Toast.makeText(view.getContext(), "Réponse enregistrée", Toast.LENGTH_SHORT);
-                msgToast.show();
+                Reponses.setRepDValue(repA.getText().toString());
 
                 if(Reponses.isOk())
-                    btnValider.setEnabled(true);
+                    showMsg(view);
+
+                repA.setBackgroundColor(getResources().getColor(R.color.colorRed));
+                repB.setBackgroundResource(android.R.color.darker_gray);
+                repC.setBackgroundResource(android.R.color.darker_gray);
+                repD.setBackgroundResource(android.R.color.darker_gray);
             }
         });
 
@@ -67,8 +87,16 @@ public class Question_quatre extends Fragment{
             @Override
             public void onClick(View view){
                 Reponses.setRepD(ECaracteristiques.HEROIQUE);
-                Toast msgToast = Toast.makeText(view.getContext(), "Réponse enregistrée", Toast.LENGTH_SHORT);
-                msgToast.show();
+                Reponses.setRepDValue(repB.getText().toString());
+
+                if(Reponses.isOk())
+                    showMsg(view);
+
+                repB.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+                repA.setBackgroundResource(android.R.color.darker_gray);
+                repC.setBackgroundResource(android.R.color.darker_gray);
+                repD.setBackgroundResource(android.R.color.darker_gray);
+
             }
         });
 
@@ -76,11 +104,16 @@ public class Question_quatre extends Fragment{
             @Override
             public void onClick(View view){
                 Reponses.setRepD(ECaracteristiques.CHARISMATIQUE);
-                Toast msgToast = Toast.makeText(view.getContext(), "Réponse enregistrée", Toast.LENGTH_SHORT);
-                msgToast.show();
+                Reponses.setRepDValue(repC.getText().toString());
 
                 if(Reponses.isOk())
-                    btnValider.setEnabled(true);
+                    showMsg(view);
+
+                repC.setBackgroundColor(getResources().getColor(R.color.colorLBlue));
+                repA.setBackgroundResource(android.R.color.darker_gray);
+                repB.setBackgroundResource(android.R.color.darker_gray);
+                repD.setBackgroundResource(android.R.color.darker_gray);
+
             }
         });
 
@@ -88,14 +121,25 @@ public class Question_quatre extends Fragment{
             @Override
             public void onClick(View view){
                 Reponses.setRepD(ECaracteristiques.PSYCHOPATHE);
-                Toast msgToast = Toast.makeText(view.getContext(), "Réponse enregistrée", Toast.LENGTH_SHORT);
-                msgToast.show();
+                Reponses.setRepDValue(repD.getText().toString());
 
                 if(Reponses.isOk())
-                    btnValider.setEnabled(true);
+                    showMsg(view);
+
+                repD.setBackgroundColor(getResources().getColor(R.color.colorOrange));
+                repA.setBackgroundResource(android.R.color.darker_gray);
+                repB.setBackgroundResource(android.R.color.darker_gray);
+                repC.setBackgroundResource(android.R.color.darker_gray);
+
             }
         });
 
-        return rootView;
+        return view;
+    }
+
+    private void showMsg(View view)
+    {
+        Toast msgToast = Toast.makeText(view.getContext(), "Vous pouvez découvrir votre héros partenaire", Toast.LENGTH_SHORT);
+        msgToast.show();
     }
 }
