@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,8 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".SplashScreenActivity"
+        <activity
+            android:name=".SplashScreenActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoTitleBar">
             <intent-filter>
@@ -23,11 +22,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MenuDemarrer"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".GetPseudo"
             android:screenOrientation="portrait">
@@ -49,9 +46,13 @@
             android:name=".MesHeros"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".Confirmation"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".Questionnaire"
             android:label="@string/title_activity_questionnaire"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".FicheHeroActivity"></activity>
     </application>
 
 </manifest>

@@ -173,7 +173,7 @@ public class Questionnaire extends AppCompatActivity {
         String q = "Vous voyez une personne faire une crise cardiaque en pleine rue, que faites vous ?";
         String rep1 = "J'appelle les secours";
         String rep2 = "Je lui vient en aide";
-        String rep3 = "Je dis au gens de s’écarter";
+        String rep3 = "Je dis aux gens de s’écarter";
         String rep4 = "Premier réflexe : j'ai tweeté";
 
         reps.add(rep1);
@@ -199,7 +199,7 @@ public class Questionnaire extends AppCompatActivity {
         questions.put(q, reps);
 
         //Question 3
-        q = "Une vieille femme se fait voler son sac à main, votre réaction";
+        q = "Une personne âgée se fait voler son sac à main, votre réaction";
         rep1 = "J’appelle la police";
         rep2 = "J’essai de récupérer son sac";
         rep3 = "J’ordonne au voleur de s'arrêter";

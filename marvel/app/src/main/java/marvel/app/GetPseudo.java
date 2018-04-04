@@ -150,7 +150,7 @@ public class GetPseudo extends AppCompatActivity {
                 datasourceUtilisateur.insertUtilisateurs(pseudo);
             }
 
-            Intent pageQuestionnaire = new Intent(GetPseudo.this, Questionnaire.class);
+            Intent pageQuestionnaire = new Intent(GetPseudo.this, Confirmation.class);
             startActivity(pageQuestionnaire);
             finish();
         }
