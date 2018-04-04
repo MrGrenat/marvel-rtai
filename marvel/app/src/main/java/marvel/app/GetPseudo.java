@@ -152,6 +152,7 @@ public class GetPseudo extends AppCompatActivity {
 
             Intent pageQuestionnaire = new Intent(GetPseudo.this, Questionnaire.class);
             startActivity(pageQuestionnaire);
+            finish();
         }
     }
 
