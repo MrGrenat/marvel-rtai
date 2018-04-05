@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="marvel.app">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".SplashScreenActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MenuDemarrer"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".GetPseudo"
+            android:screenOrientation="portrait">
+
+            <!--
+                <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+        <activity
+            android:name=".SettingsUser"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SettingsLaw"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MesHeros"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Confirmation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Questionnaire"
+            android:label="@string/title_activity_questionnaire"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".TonHerosActivity"
+        android:screenOrientation="portrait" />
+        <activity android:name=".TonHerosSelectActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".FicheHeroActivity"
+            android:screenOrientation="portrait">
+        </activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="marvel.app.Confirmation">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="55dp"
+        android:fadeScrollbars="false"
+        android:paddingTop="5dp"
+        android:scrollbarSize="5dp"
+        android:scrollbarThumbVertical="@android:color/darker_gray"
+        app:layout_constraintBottom_toTopOf="@+id/bt_modifier"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/qA"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:text="Vous voyez une personne faire une crise cardiaque en pleine rue, que faites vous ? "
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/repA"
+                android:layout_width="350dp"
+                android:layout_height="21dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorRed"
+                android:text="Premier réflexe : j'ai tweeté"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/qA" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="352dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/repA" />
+
+            <TextView
+                android:id="@+id/qB"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:text="Vous voyez une maison en feu, que faites vous ? "
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view3" />
+
+            <TextView
+                android:id="@+id/repB"
+                android:layout_width="350dp"
+                android:layout_height="21dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorLBlue"
+                android:text="Je fonce aider les gens à l'intérieur"
+                android:textColor="@color/colorWhite"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/qB" />
+
+            <View
+                android:id="@+id/view4"
+                android:layout_width="352dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/repB" />
+
+            <TextView
+                android:id="@+id/qC"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:text="Votre costume de super héro se compose de : "
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+            <TextView
+                android:id="@+id/repC"
+                android:layout_width="350dp"
+                android:layout_height="21dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorRed"
+                android:text="Un masque de film d’horreur"
+                android:textColor="@color/colorWhite"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/qC" />
+
+            <View
+                android:id="@+id/view5"
+                android:layout_width="352dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="#aaa"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/repC" />
+
+            <TextView
+                android:id="@+id/qD"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:text="Ton plus gros défaut"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view5" />
+
+            <TextView
+                android:id="@+id/repD"
+                android:layout_width="350dp"
+                android:layout_height="21dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorOrange"
+                android:text="Je passe trop de temps dans la salle de bain"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/qD" />
+
+            <View
+                android:id="@+id/view6"
+                android:layout_width="352dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/repD" />
+
+            <TextView
+                android:id="@+id/qE"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:text="Un animal abandonné semble blessé, que faîtes vous ?"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view6" />
+
+            <TextView
+                android:id="@+id/repE"
+                android:layout_width="350dp"
+                android:layout_height="21dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorRed"
+                android:text="Cool un nouveau manteau en fourrure !"
+                android:textColor="@color/colorWhite"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/qE" />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/bt_modifier"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="160dp"
+        android:layout_height="53dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="16dp"
+        android:elevation="24dp"
+        android:text="MODIFIER"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/bt_valider"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="160dp"
+        android:layout_height="53dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="16dp"
+        android:elevation="24dp"
+        android:text="VALIDER"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

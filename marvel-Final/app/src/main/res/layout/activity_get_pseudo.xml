@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="marvel.app.GetPseudo">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <TextView
+        android:id="@+id/tv_pseudo"
+        android:layout_width="250dp"
+        android:layout_height="46dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:text="Entre ton nom de Héros"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="18sp" />
+
+
+    <TextView
+        android:id="@+id/tv_pseudo2"
+        android:layout_width="120dp"
+        android:layout_height="25dp"
+        android:layout_alignStart="@+id/tv_pseudo"
+        android:layout_below="@+id/tv_pseudo"
+        android:text="Pseudo"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/et_pseudo"
+        android:layout_width="200dp"
+        android:layout_height="39dp"
+        android:layout_alignBottom="@+id/tv_pseudo2"
+        android:layout_alignEnd="@+id/tv_pseudo"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="350dp"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tv_pseudo2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="39dp"
+        android:background="#aaa" />
+
+    <TextView
+        android:id="@+id/tv_photo"
+        android:layout_width="300dp"
+        android:layout_height="28dp"
+        android:layout_alignStart="@+id/iv_photo"
+        android:layout_below="@+id/view"
+        android:layout_marginTop="26dp"
+        android:text="Sélectionne ta photo"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/bt_photo"
+        android:layout_width="63dp"
+        android:layout_height="42dp"
+        android:layout_below="@+id/tv_photo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/galleryimage" />
+
+    <ImageView
+        android:id="@+id/iv_photo"
+        android:layout_width="300dp"
+        android:layout_height="139dp"
+        android:layout_alignStart="@+id/bt_valider"
+        android:layout_below="@+id/bt_photo"
+        android:layout_marginTop="17dp"
+        android:background="@drawable/defautphoto" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="350dp"
+        android:layout_height="1dp"
+        android:layout_above="@+id/bt_valider"
+        android:layout_alignStart="@+id/view"
+        android:layout_marginBottom="22dp"
+        android:background="#aaa"/>
+
+    <Button
+        android:id="@+id/bt_valider"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="300dp"
+        android:layout_height="67dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="13dp"
+        android:elevation="24dp"
+        android:text="COMMENCER"/>
+
+</RelativeLayout>

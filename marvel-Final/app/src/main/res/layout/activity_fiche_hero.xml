@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="marvel.app.FicheHeroActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <TextView
+        android:id="@+id/tv_nomHeros"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="55dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="NOM HERO"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_photo"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_nomHeros"
+        app:srcCompat="@drawable/spiderman" />
+
+    <ScrollView
+        android:layout_width="349dp"
+        android:layout_height="258dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="15dp"
+        android:fadeScrollbars="false"
+        android:scrollbarSize="5dp"
+        android:scrollbarThumbVertical="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_photo">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_apparait"
+                android:layout_width="315dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="LE HERO APPARAIT DANS :"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_carac" />
+
+            <TextView
+                android:id="@+id/tv_carac"
+                android:layout_width="315dp"
+                android:layout_height="76dp"
+                android:layout_marginTop="20dp"
+                android:text="CARACTERISTIQUE"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_desc" />
+
+            <TextView
+                android:id="@+id/tv_desc"
+                android:layout_width="315dp"
+                android:layout_height="wrap_content"
+                android:text="DESCRIPTION EN ANGLAIS DE l'API VIA LA BDD"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>

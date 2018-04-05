@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewNomHeros"
+        android:layout_width="148dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="118dp"
+        android:layout_marginTop="15dp"
+        android:text="Nom du Héros"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/imageViewHeros"
+        android:layout_width="105dp"
+        android:layout_height="105dp"
+        android:layout_marginTop="22dp"
+        app:layout_constraintStart_toEndOf="@+id/imageViewUser"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNomHeros"
+        app:srcCompat="@drawable/ironman"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/imageViewUser"
+        android:layout_width="105dp"
+        android:layout_height="105dp"
+        android:layout_marginStart="77dp"
+        android:layout_marginTop="22dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNomHeros"
+        app:srcCompat="@drawable/galleryimage"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/buttonReprendrePhoto"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="77dp"
+        android:layout_marginTop="21dp"
+        android:text="Reprendre une photo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewHeros" />
+
+    <TextView
+        android:id="@+id/textViewDescHeros"
+        android:layout_width="338dp"
+        android:layout_height="174dp"
+        android:layout_marginEnd="23dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="32dp"
+        android:text="Description héros"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonReprendrePhoto" />
+
+    <Button
+        android:id="@+id/buttonAccueil"
+        android:layout_width="151dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="23dp"
+        android:text="Accueil"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDescHeros" />
+
+    <Button
+        android:id="@+id/buttonFicheHeros"
+        android:layout_width="151dp"
+        android:layout_height="57dp"
+        android:layout_marginEnd="23dp"
+        android:text="Fiche Heros"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDescHeros" />
+
+
+</android.support.constraint.ConstraintLayout>
