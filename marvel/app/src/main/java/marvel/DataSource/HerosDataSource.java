@@ -62,7 +62,7 @@ public class HerosDataSource {
 
     }
 
-    public void insertHeroes(String heros, String desc, String imgUrl){
+    public long insertHeroesGetID(String heros, String desc, String imgUrl){
             ContentValues values = new ContentValues();
             values.put(DbHelper.HEROS_NOM, heros);
             values.put(DbHelper.HEROS_DESC, desc);
@@ -77,6 +77,8 @@ public class HerosDataSource {
         cursor.moveToFirst();
         //Heros newHeros = cursorToHeros(cursor);
         cursor.close();
+
+        return insertId;
     }
 
     public void updateCarac(String name, int heroique, int intelligent, int charismatique, int psychopathe){
@@ -94,8 +96,8 @@ public class HerosDataSource {
         catch (Exception e){
             //String error =  e.getMessage().toString();
         }
-
     }
+
     public void deleteHeros(Heros heros) {
         long id = heros.getId();
         System.out.println("Heros deleted with id: " + id);
@@ -123,6 +125,35 @@ public class HerosDataSource {
         cursor.close();
         return heros;
     }
+
+    public List<Heros> getAllHerosCarac(String carac, int value) {
+        List<Heros> heros = new ArrayList<Heros>();
+
+        Cursor cursor = database.query(DbHelper.TABLE_HEROS,
+                allColumns, carac + "=" + value, null, null, null, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Heros hero = cursorToHeros(cursor);
+            heros.add(hero);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return heros;
+    }
+
+    public Heros getHerosId(long id) {
+        Heros heros = new Heros();
+
+        Cursor cursor = database.query(DbHelper.TABLE_HEROS,
+                allColumns, DbHelper.HEROS_ID+" = "+id, null, null, null, null);
+
+        cursor.moveToFirst();
+        heros = cursorToHeros(cursor);
+        cursor.close();
+        return heros;
+    }
+
     private Heros cursorToHeros(Cursor cursor) {
         Heros heros = new Heros();
         heros.setId(cursor.getLong(0));

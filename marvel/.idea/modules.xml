@@ -3,10 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\lmarfaing\Desktop\Nouveau dossier\marvel\app\app.iml" filepath="C:\Users\lmarfaing\Desktop\Nouveau dossier\marvel\app\app.iml" />
       <module fileurl="file://C:\Users\potmane\Documents\GitHub\marvel-rtai\marvel\app\app.iml" filepath="C:\Users\potmane\Documents\GitHub\marvel-rtai\marvel\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/marvel.iml" filepath="$PROJECT_DIR$/marvel.iml" />
-      <module fileurl="file://C:\Users\lmarfaing\Desktop\Nouveau dossier\marvel\marvel.iml" filepath="C:\Users\lmarfaing\Desktop\Nouveau dossier\marvel\marvel.iml" />
       <module fileurl="file://C:\Users\potmane\Documents\GitHub\marvel-rtai\marvel\marvel.iml" filepath="C:\Users\potmane\Documents\GitHub\marvel-rtai\marvel\marvel.iml" />
     </modules>
   </component>

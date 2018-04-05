@@ -17,10 +17,10 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String HEROS_NOM = "nom";
     public static final String HEROS_DESC = "descHeros";
     public static final String HEROS_IMAGE ="herosImage";
-    public static final String HEROS_HEROIQUE ="herosHeroique";
-    public static final String HEROS_INTELLIGENT ="herosIntelligent";
-    public static final String HEROS_CHARISMATIQUE ="herosCharismatique";
-    public static final String HEROS_PSYCHOPATHE ="herosPsychopathe";
+    public static final String HEROS_HEROIQUE ="heroique";
+    public static final String HEROS_INTELLIGENT ="intelligent";
+    public static final String HEROS_CHARISMATIQUE ="charismatique";
+    public static final String HEROS_PSYCHOPATHE ="psychopathe";
 
 
     //TABLE UTILISATEUR

@@ -43,6 +43,7 @@ import java.util.List;
 import marvel.DataSource.HerosDataSource;
 import marvel.DataSource.PartiesDataSource;
 import marvel.DataSource.UtilisateursDataSource;
+import marvel.Reponses;
 import marvel.Tables.Partie;
 import marvel.Tables.PartieStatic;
 import marvel.Tables.Utilisateurs;
@@ -176,16 +177,22 @@ public class GetPseudo extends AppCompatActivity {
             partie.setLienPhoto(path);
             partie.setTermine(0);
 
-            partieStatic = new PartieStatic();
-            partieStatic.setLienPhoto(path);
-            partieStatic.setTermine(0);
+
+            PartieStatic.setLienPhoto(path);
+            PartieStatic.setTermine(0);
 
             datasourceParties = new PartiesDataSource(getApplicationContext());
             datasourceParties.open();
-            datasourceParties.insertPartie(partie);
+
+            long idPartie = datasourceParties.insertPartie(partie);
+            PartieStatic.setId(idPartie);
+
+            //Reset les réponses
+            Reponses.reset();
 
             Intent pageQuestionnaire = new Intent(GetPseudo.this, Questionnaire.class);
             startActivity(pageQuestionnaire);
+            finish();
         }
     }
 

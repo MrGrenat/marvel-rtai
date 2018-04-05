@@ -53,7 +53,7 @@ public class SeriesDataSource {
 
     }
 
-    public void insertSeries(String nom){
+    public long insertSeriesGetID(String nom){
         ContentValues values = new ContentValues();
         values.put(DbHelper.SERIES_NOM, nom);
 
@@ -63,6 +63,16 @@ public class SeriesDataSource {
                 null,null,null,null);
         cursor.moveToFirst();
         cursor.close();
+
+        return insertId;
+    }
+
+    public void insertSeriesHeros(long idSeries, long idHeros){
+        ContentValues values = new ContentValues();
+        values.put(DbHelper.EPS_SERIES_ID, idSeries);
+        values.put(DbHelper.EPS_HEROS_ID, idHeros);
+
+        database.insert(DbHelper.TABLE_EST_PRESENT_SERIES, null,values);
     }
 
     public void deleteSeries(Series series) {

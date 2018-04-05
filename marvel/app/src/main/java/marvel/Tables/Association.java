@@ -13,15 +13,15 @@ public class Association {
         return idHeros;
     }
 
-    public void setIdHeros(int idHeros) {
-        this.idHeros = idHeros;
+    public void setIdHeros(long idHeros) {
+        this.idHeros = (int) idHeros;
     }
 
     public int getIdEtranger() {
         return idEtranger;
     }
 
-    public void setIdEtranger(int idEtranger) {
-        this.idEtranger = idEtranger;
+    public void setIdEtranger(long idEtranger) {
+        this.idEtranger = (int) idEtranger;
     }
 }

@@ -161,8 +161,6 @@ public class Reponses {
 
     public static boolean isOk()
     {
-        System.out.println("TEST: " + repA + " - " + repB + " - " + repC + " - " + repD + " - " + repE);
-
         if(repA != null && repB != null && repC != null && repD != null && repE != null)
             return true;
         else

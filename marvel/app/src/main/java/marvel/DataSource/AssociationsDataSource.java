@@ -56,7 +56,7 @@ public class AssociationsDataSource {
     }
 
     public void clean(){
-        System.out.println("Base de donnees videe");
+        System.out.println("Base de donnees vidée");
         dbHelper.onUpgradeHeros(database,database.getVersion(),database.getVersion());
     }
 
@@ -68,7 +68,7 @@ public class AssociationsDataSource {
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            Association assocObj = cursorToPartie(cursor);
+            Association assocObj = cursorToAssociation(cursor);
             assocs.add(assocObj);
             cursor.moveToNext();
         }
@@ -76,7 +76,19 @@ public class AssociationsDataSource {
         return assocs;
     }
 
-    private Association cursorToPartie(Cursor cursor) {
+    public Association getAssocId(long id) {
+        Association assoc = new Association();
+
+        Cursor cursor = database.query(DbHelper.TABLE_EST_ASSOCIE_PARTIE,
+                allColumns, DbHelper.EAC_PARTIE_ID+" = "+id, null, null, null, null);
+
+        cursor.moveToFirst();
+        assoc = cursorToAssociation(cursor);
+        cursor.close();
+        return assoc;
+    }
+
+    private Association cursorToAssociation(Cursor cursor) {
         Association assoc = new Association();
         assoc.setIdEtranger(cursor.getInt(0));
         assoc.setIdHeros(cursor.getInt(1));

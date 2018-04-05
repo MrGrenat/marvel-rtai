@@ -58,7 +58,7 @@ public class PartiesDataSource {
 
     }
 
-    public void insertPartie(Partie partie){
+    public long insertPartie(Partie partie){
         ContentValues values = new ContentValues();
         values.put(DbHelper.PARTIE_PHOTO, partie.getLienPhoto());
         values.put(DbHelper.PARTIE_ISTERMINE, partie.getTermine());
@@ -71,6 +71,55 @@ public class PartiesDataSource {
         cursor.moveToFirst();
         //Heros newHeros = cursorToHeros(cursor);
         cursor.close();
+
+        return insertId;
+    }
+
+
+
+    public void updatePhoto(long id, String path){
+        ContentValues values = new ContentValues();
+        values.put(DbHelper.PARTIE_PHOTO, path);
+
+        String where = DbHelper.PARTIE_ID + "= "+ id;
+
+        try{
+            database.update(DbHelper.TABLE_PARTIE, values, where, null);
+        }
+        catch (Exception e){
+            //String error =  e.getMessage().toString();
+        }
+
+    }
+
+    public void updateDate(long id, String date){
+        ContentValues values = new ContentValues();
+        values.put(DbHelper.PARTIE_DATE, date);
+
+        String where = DbHelper.PARTIE_ID + "= "+ id;
+
+        try{
+            database.update(DbHelper.TABLE_PARTIE, values, where, null);
+        }
+        catch (Exception e){
+            //String error =  e.getMessage().toString();
+        }
+
+    }
+
+    public void setTermine(long id){
+        ContentValues values = new ContentValues();
+        values.put(DbHelper.PARTIE_ISTERMINE, 1);
+
+        String where = DbHelper.PARTIE_ID + "= "+ id;
+
+        try{
+            database.update(DbHelper.TABLE_PARTIE, values, where, null);
+        }
+        catch (Exception e){
+            //String error =  e.getMessage().toString();
+        }
+
     }
 
     public void deletePartie(Partie partie) {
@@ -97,6 +146,18 @@ public class PartiesDataSource {
             partie.add(partieObj);
             cursor.moveToNext();
         }
+        cursor.close();
+        return partie;
+    }
+
+    public Partie getPartieId(long id) {
+        Partie partie = new Partie();
+
+        Cursor cursor = database.query(DbHelper.TABLE_PARTIE,
+                allColumns, DbHelper.PARTIE_ID+" = "+id, null, null, null, null);
+
+        cursor.moveToFirst();
+        partie = cursorToPartie(cursor);
         cursor.close();
         return partie;
     }

@@ -52,7 +52,7 @@ public class ComicsDataSource {
 
     }
 
-    public void insertComics(String nom){
+    public long insertComicsGetID(String nom){
         ContentValues values = new ContentValues();
         values.put(DbHelper.COMICS_NOM, nom);
 
@@ -62,6 +62,16 @@ public class ComicsDataSource {
                 null,null,null,null);
         cursor.moveToFirst();
         cursor.close();
+
+        return insertId;
+    }
+
+    public void insertComicsHeros(long idSeries, long idHeros){
+        ContentValues values = new ContentValues();
+        values.put(DbHelper.EPC_COMICS_ID, idSeries);
+        values.put(DbHelper.EPC_COMICS_ID, idHeros);
+
+        database.insert(DbHelper.TABLE_EST_PRESENT_COMICS, null,values);
     }
 
     public void deleteComics(Comics comics) {

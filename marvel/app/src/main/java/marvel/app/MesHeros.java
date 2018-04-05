@@ -1,13 +1,21 @@
 package marvel.app;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+
+import android.support.v7.widget.RecyclerView;
+
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -18,25 +26,39 @@ import android.widget.TextView;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import marvel.DataSource.AssociationsDataSource;
+import marvel.DataSource.HerosDataSource;
 import marvel.DataSource.PartiesDataSource;
-import marvel.DataSource.UtilisateursDataSource;
 import marvel.Tables.Association;
+import marvel.Tables.Heros;
 import marvel.Tables.Partie;
 
 @SuppressLint("Registered")
 public class MesHeros extends AppCompatActivity {
     private Toolbar toolbar;
     private ImageView photo;
+
     private static final int REQUEST_IMAGE_CAPTURE = 1;
+
     private EditText etPseudo;
     private String pseudo;
+
     private PartiesDataSource datasourceParties;
     private AssociationsDataSource datasourceAssociations;
+    private HerosDataSource datasourceHeros;
+
     private Button testBtn;
     private String timeStamp;
+
+    private List<MesHerosForm> herosFormList = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private HerosAdapter mAdapter;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,83 +95,69 @@ public class MesHeros extends AppCompatActivity {
             }
         });
 
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
+        mAdapter = new HerosAdapter(herosFormList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(mAdapter);
+
+        prepareHerosData();
+
+
+    }
+
+    private void prepareHerosData() {
+        MesHerosForm herosForm;
         datasourceParties = new PartiesDataSource(getApplicationContext());
         datasourceParties.open();
+        List<Partie> parties = datasourceParties.getAllParties();
 
         datasourceAssociations = new AssociationsDataSource(getApplicationContext());
         datasourceAssociations.open();
-
-        List<Partie> parties = datasourceParties.getAllParties();
         List<Association> assocs = datasourceAssociations.getAllAssocs();
+
+        datasourceHeros = new HerosDataSource((getApplicationContext()));
+        datasourceHeros.open();
+        List<Heros> heros = datasourceHeros.getAllHeros();
+
         if (parties != null){
             System.out.println("Au moins une partie");
             for (Partie p:parties){
-                System.out.println("Partie: "+p.getId());
+                System.out.println("Partie trouvée : partie "+p.getId());
                 if (p.getTermine()>=1 ) {
-                    /*
-                    System.out.println("Partie complete trouvée");
-                    System.out.println(p.getId());
-                    System.out.println(p.getLienPhoto());
-                    System.out.println(p.getTermine());
-                    System.out.println(p.getDate());*/
 
                     if (assocs != null && !assocs.isEmpty()) {
                         for (Association a:assocs){
                             if(a.getIdEtranger() == p.getId()){
 
-                                System.out.println("");
-                                System.out.println("Partie : "+p.getId());
-                                System.out.println("Date : "+p.getDate());
-                                System.out.println("idHero : "+a.getIdHeros());
+                                int i = 0;
+                                for (Heros h:heros){
+                                    if(a.getIdHeros() == h.getId()){
+
+                                        System.out.println("Partie Complète: partie "+p.getId());
+                                        System.out.println("urlPhoto : "+h.getUrlImage());
+                                        System.out.println("NomHeros : "+h.getNom());
+                                        System.out.println("Date : "+p.getDate());
+
+                                        Context ctxt = getApplicationContext();
+                                        herosForm = new MesHerosForm(h.getNom(), h.getUrlImage(), p.getDate(), ctxt, p.getId());
+                                        herosFormList.add(herosForm);
+                                    }
+                                }
                             }
                         }
 
-                    }else{
-                        System.out.println("Pas de parties complètes trouvées");
-                    }
+                    }else System.out.println("Pas de parties complètes trouvées");
                 }
-
             }
-        }else{
-            System.out.println("La table 'parties' est vide, commencer une nvlle partie afin de voir vos héros retournés");
+        }else System.out.println("La table 'parties' est vide, commencer une nvlle partie afin de voir vos héros retournés");
+        datasourceAssociations.close();
+        datasourceParties.close();
+        datasourceHeros.close();
 
-        }
-
-        testBtn = findViewById(R.id.detail);
-        testBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View detail) {
-                Intent pageFicheHeros = new Intent(MesHeros.this, FicheHeroActivity.class);
-                startActivity(pageFicheHeros);
-                finish();
-            }
-        });
-
-
-    }
-
-    public void testInsertTablePartie(){
-        Partie partieToInsert = new Partie();
-        partieToInsert.setLienPhoto("drawable/exemple.png");
-        partieToInsert.setId(1);
-        partieToInsert.setTermine(1);
-        timeStamp = new SimpleDateFormat("dd.MM.yyyy.HH.mm.ss").format(new Timestamp(System.currentTimeMillis()));
-        partieToInsert.setDate(timeStamp);
-
-        datasourceParties = new PartiesDataSource(getApplicationContext());
-        datasourceParties.open();
-        datasourceParties.insertPartie(partieToInsert);
-
-        Association assocToInsert = new Association();
-        assocToInsert.setIdHeros(1);
-        assocToInsert.setIdEtranger(1);
-
-        datasourceAssociations = new AssociationsDataSource(getApplicationContext());
-        datasourceAssociations.open();
-        datasourceAssociations.insertAssociation(assocToInsert);
-
-        System.out.println("Création d'une nouvelle partie");
-
+        mAdapter.notifyDataSetChanged();
     }
 
     //Appel du menu

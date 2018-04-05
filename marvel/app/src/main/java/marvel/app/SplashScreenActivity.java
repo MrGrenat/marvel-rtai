@@ -156,16 +156,16 @@ public class SplashScreenActivity extends AppCompatActivity {
                                 });
                                 Thread.sleep(100);
 
-                                System.out.println(unHeros.getNom());
-                                datasource.insertHeroes(unHeros.getNom(), unHeros.getDesc(), unHeros.getUrlImage());
+                                System.out.println(unHeros.getNom() + " - IMG: " + unHeros.getUrlImage());
+                                long idHeros = datasource.insertHeroesGetID(unHeros.getNom(), unHeros.getDesc(), unHeros.getUrlImage());
 
                                 for (Series series : herosSeries.get(unHeros)) {
-                                    datasourceSeries.insertSeries(series.getNom());
-
+                                    long idSeries = datasourceSeries.insertSeriesGetID(series.getNom());
+                                    datasourceSeries.insertSeriesHeros(idSeries, idHeros);
                                 }
                                 for (Comics comics : herosComics.get(unHeros)) {
-                                    datasourceComics.insertComics(comics.getNom());
-
+                                    long idComics = datasourceComics.insertComicsGetID(comics.getNom());
+                                    datasourceComics.insertComicsHeros(idComics, idHeros);
                                 }
 
                                 if(unHeros.getNom().equals("Iron Man")){
@@ -186,7 +186,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                                 }
                                 else if(unHeros.getNom().equals("HULK")){
                                     unHeros.setCarateristiques(2,1,1,4);
-                                    datasource.updateCarac(unHeros.getNom(),2,1,1,4);
+                                    datasource.updateCarac(unHeros.getNom(),2,1,1,2);
                                 }
                                 else if(unHeros.getNom().equals("Rogue")){
                                     unHeros.setCarateristiques(3,3,3,2);

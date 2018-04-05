@@ -60,9 +60,6 @@ public class Questionnaire extends AppCompatActivity {
 
         Button btnValider = (Button) findViewById(R.id.btnValider);
 
-        //Reset les réponses
-        Reponses.reset();
-
         //Création de toutes les questions
         setupQuestions();
 
@@ -94,6 +91,7 @@ public class Questionnaire extends AppCompatActivity {
                 {
                     Intent pageConfirm = new Intent(Questionnaire.this, Confirmation.class);
                     startActivity(pageConfirm);
+                    finish();
                 }
                 else
                 {

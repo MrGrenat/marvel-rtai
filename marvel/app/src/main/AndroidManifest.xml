@@ -54,6 +54,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".TonHerosActivity"
         android:screenOrientation="portrait" />
+        <activity android:name=".TonHerosSelectActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".FicheHeroActivity"
             android:screenOrientation="portrait">
         </activity>

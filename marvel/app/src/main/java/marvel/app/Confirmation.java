@@ -98,6 +98,8 @@ public class Confirmation extends AppCompatActivity {
         btnModif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent pageQuestionnaire = new Intent(Confirmation.this, Questionnaire.class);
+                startActivity(pageQuestionnaire);
                 finish();
             }
         });
