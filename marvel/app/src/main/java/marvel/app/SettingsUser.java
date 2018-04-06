@@ -116,6 +116,7 @@ public class SettingsUser  extends AppCompatActivity {
 
             Intent accueil = new Intent(SettingsUser.this, MenuDemarrer.class);
             startActivity(accueil);
+            finish();
         }
     }
 
@@ -156,18 +157,22 @@ public class SettingsUser  extends AppCompatActivity {
     private void openSettingsUser(){
         Intent pageSettingsUser = new Intent(this, SettingsUser.class);
         startActivity(pageSettingsUser);
+        finish();
     }
     private void openSettingsLaw(){
         Intent pageSettingsLaw = new Intent(this, SettingsLaw.class);
         startActivity(pageSettingsLaw);
+        finish();
     }
     private void openMesHeros(){
         Intent pageSettingsLaw = new Intent(this, SettingsLaw.class);
         startActivity(pageSettingsLaw);
+        finish();
     }
     private void openHome(){
         Intent pageSettingsLaw = new Intent(this, MenuDemarrer.class);
         startActivity(pageSettingsLaw);
+        finish();
     }
 
     private void back(){

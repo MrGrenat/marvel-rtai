@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import marvel.Tables.PartieStatic;
+import marvel.PartieStatic;
 
 
 public class HerosAdapter extends RecyclerView.Adapter<HerosAdapter.MyViewHolder> {

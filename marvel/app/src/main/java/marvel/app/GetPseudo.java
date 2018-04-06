@@ -1,24 +1,18 @@
 package marvel.app;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.MediaScannerConnection;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,7 +25,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -40,15 +33,12 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 
-import marvel.DataSource.HerosDataSource;
 import marvel.DataSource.PartiesDataSource;
 import marvel.DataSource.UtilisateursDataSource;
 import marvel.Reponses;
 import marvel.Tables.Partie;
-import marvel.Tables.PartieStatic;
+import marvel.PartieStatic;
 import marvel.Tables.Utilisateurs;
-
-import static android.media.MediaRecorder.VideoSource.CAMERA;
 
 @SuppressLint("Registered")
 public class GetPseudo extends AppCompatActivity {
@@ -226,7 +216,6 @@ public class GetPseudo extends AppCompatActivity {
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
         startActivityForResult(galleryIntent, 2);
-        cleanBackground();
     }
 
     //Fonction permettant de prendre une photo
@@ -234,13 +223,7 @@ public class GetPseudo extends AppCompatActivity {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-            cleanBackground();
         }
-    }
-    
-    public void cleanBackground(){
-        ImageView photo = findViewById(R.id.iv_photo);
-        photo.setBackground(null);
     }
 
     private String saveToInternalStorage(Bitmap bitmapImage){
@@ -367,21 +350,25 @@ public class GetPseudo extends AppCompatActivity {
     private void openSettingsUser(){
         Intent pageSettingsUser = new Intent(this, SettingsUser.class);
         startActivity(pageSettingsUser);
+        finish();
     }
 
     private void openSettingsLaw(){
         Intent pageSettingsLaw = new Intent(this, SettingsLaw.class);
         startActivity(pageSettingsLaw);
+        finish();
     }
 
     private void openMesHeros(){
         Intent pageSettingsUser = new Intent(this, MesHeros.class);
         startActivity(pageSettingsUser);
+        finish();
     }
 
     private void openHome(){
         Intent pageSettingsLaw = new Intent(this, MenuDemarrer.class);
         startActivity(pageSettingsLaw);
+        finish();
     }
 
     private void back(){

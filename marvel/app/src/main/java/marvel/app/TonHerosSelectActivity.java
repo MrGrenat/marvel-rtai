@@ -16,6 +16,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,22 +28,15 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
 import marvel.DataSource.AssociationsDataSource;
 import marvel.DataSource.HerosDataSource;
 import marvel.DataSource.PartiesDataSource;
-import marvel.JSON.enums.ECaracteristiques;
-import marvel.Reponses;
 import marvel.Tables.Association;
 import marvel.Tables.Heros;
 import marvel.Tables.Partie;
-import marvel.Tables.PartieStatic;
+import marvel.PartieStatic;
 
 public class TonHerosSelectActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -56,6 +51,9 @@ public class TonHerosSelectActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Plein Ecran
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ton_heros);
 
@@ -316,21 +314,25 @@ public class TonHerosSelectActivity extends AppCompatActivity {
     private void openSettingsUser(){
         Intent pageSettingsUser = new Intent(this, SettingsUser.class);
         startActivity(pageSettingsUser);
+        finish();
     }
 
     private void openSettingsLaw(){
         Intent pageSettingsLaw = new Intent(this, SettingsLaw.class);
         startActivity(pageSettingsLaw);
+        finish();
     }
 
     private void openMesHeros(){
         Intent pageSettingsUser = new Intent(this, MesHeros.class);
         startActivity(pageSettingsUser);
+        finish();
     }
 
     private void openHome(){
         Intent pageSettingsLaw = new Intent(this, MenuDemarrer.class);
         startActivity(pageSettingsLaw);
+        finish();
     }
 
     private void back(){

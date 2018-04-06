@@ -173,6 +173,10 @@ public class HerosDataSource {
         heros.setNom(cursor.getString(1));
         heros.setDesc(cursor.getString(2));
         heros.setUrlImage(cursor.getString(3));
+        heros.setHeroique(cursor.getInt(4));
+        heros.setIntelligent(cursor.getInt(5));
+        heros.setCharismatique(cursor.getInt(6));
+        heros.setPsychopathe(cursor.getInt(7));
         return heros;
     }
 }

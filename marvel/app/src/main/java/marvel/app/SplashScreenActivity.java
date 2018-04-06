@@ -84,165 +84,248 @@ public class SplashScreenActivity extends AppCompatActivity {
         NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
 
 
-        if(activeNetwork.getState() == NetworkInfo.State.CONNECTED)
+        if(activeNetwork != null && activeNetwork.getState() == NetworkInfo.State.CONNECTED)
         {
             connected = true;
         }
 
 
-        if (datasource.getAllHeros().isEmpty() && connected) {
+        if(connected)
+        {
+            if (datasource.getAllHeros().isEmpty()) {
 
-            textView.setText("Connexion avec les Avengers...");
+                textView.setText("Connexion avec les Avengers...");
 
-            threadJSON = new Thread(new Runnable() {
+                threadJSON = new Thread(new Runnable() {
 
-                @Override
-                public void run() {
-                    try {
-                        JSONObject json = null;
-
+                    @Override
+                    public void run() {
                         try {
-                            for (EHeros heros : EHeros.values()) {
-                                String name = heros.toString().replaceAll(" ", "%20");
-                                String link = "http://gateway.marvel.com/v1/public/characters?ts=1&apikey=7438083edc62a38cfbbcdb2f132502f0&hash=51c42a9ff12f032743ac50438e9ad95d&name=" + name;
-                                System.out.println("LINK: " + link);
+                            JSONObject json = null;
 
-                                json = readJsonFromUrl(link);
-                                JSONObject jsonD = json.getJSONObject("data");
-                                JSONArray jsonA = jsonD.getJSONArray("results");
-                                JSONObject jsonH = jsonA.getJSONObject(0);
-                                Heros leHeros = new Heros();
-                                leHeros.setNom(jsonH.get("name").toString());
-                                leHeros.setDesc(jsonH.get("description").toString());
+                            try {
+                                for (EHeros heros : EHeros.values()) {
+                                    String name = heros.toString().replaceAll(" ", "%20");
+                                    String link = "http://gateway.marvel.com/v1/public/characters?ts=1&apikey=7438083edc62a38cfbbcdb2f132502f0&hash=51c42a9ff12f032743ac50438e9ad95d&name=" + name;
+                                    System.out.println("LINK: " + link);
 
-                                JSONObject jsonI = jsonH.getJSONObject("thumbnail");
-                                String img = jsonI.getString("path") + "." + jsonI.getString("extension");
+                                    json = readJsonFromUrl(link);
+                                    JSONObject jsonD = json.getJSONObject("data");
+                                    JSONArray jsonA = jsonD.getJSONArray("results");
+                                    JSONObject jsonH = jsonA.getJSONObject(0);
+                                    Heros leHeros = new Heros();
+                                    leHeros.setNom(jsonH.get("name").toString());
+                                    leHeros.setDesc(jsonH.get("description").toString());
 
-                                leHeros.setUrlImage(img);
+                                    JSONObject jsonI = jsonH.getJSONObject("thumbnail");
+                                    String img = jsonI.getString("path") + "." + jsonI.getString("extension");
 
-
-                                lesHeros.add(leHeros);
-
-                                JSONObject jsonCList = jsonH.getJSONObject("comics");
-                                JSONArray jsonC = jsonCList.getJSONArray("items");
-
-                                ArrayList<Comics> comicsHeros = new ArrayList<>();
-                                for (int i = 0; i < jsonC.length(); i++) {
-                                    Comics leComics = new Comics();
-                                    leComics.setNom(((JSONObject) jsonC.get(i)).getString("name"));
-                                    comicsHeros.add(leComics);
-                                }
-                                herosComics.put(leHeros, comicsHeros);
-
-                                JSONObject jsonSList = jsonH.getJSONObject("series");
-                                JSONArray jsonS = jsonSList.getJSONArray("items");
-
-                                ArrayList<Series> seriesHeros = new ArrayList<>();
-                                for (int i = 0; i < jsonS.length(); i++) {
-                                    Series laSerie = new Series();
-                                    laSerie.setNom(((JSONObject) jsonS.get(i)).getString("name"));
-                                    seriesHeros.add(laSerie);
-                                }
-                                herosSeries.put(leHeros, seriesHeros);
-                            }
+                                    leHeros.setUrlImage(img);
 
 
-                            for (Heros unHeros : lesHeros) {
-                                textView.post(new Runnable() {
-                                    public void run() {
+                                    lesHeros.add(leHeros);
 
-                                        textView.setText("Enregistrement de la liste des héros.\nVeuillez patienter...");
+                                    JSONObject jsonCList = jsonH.getJSONObject("comics");
+                                    JSONArray jsonC = jsonCList.getJSONArray("items");
+
+                                    ArrayList<Comics> comicsHeros = new ArrayList<>();
+                                    for (int i = 0; i < jsonC.length(); i++) {
+                                        Comics leComics = new Comics();
+                                        leComics.setNom(((JSONObject) jsonC.get(i)).getString("name"));
+                                        comicsHeros.add(leComics);
                                     }
-                                });
-                                Thread.sleep(100);
+                                    herosComics.put(leHeros, comicsHeros);
 
-                                System.out.println(unHeros.getNom() + " - IMG: " + unHeros.getUrlImage());
-                                long idHeros = datasource.insertHeroesGetID(unHeros.getNom(), unHeros.getDesc(), unHeros.getUrlImage());
+                                    JSONObject jsonSList = jsonH.getJSONObject("series");
+                                    JSONArray jsonS = jsonSList.getJSONArray("items");
 
-                                for (Series series : herosSeries.get(unHeros)) {
-                                    long idSeries = datasourceSeries.insertSeriesGetID(series.getNom());
-                                    datasourceSeries.insertSeriesHeros(idSeries, idHeros);
-                                }
-                                for (Comics comics : herosComics.get(unHeros)) {
-                                    long idComics = datasourceComics.insertComicsGetID(comics.getNom());
-                                    datasourceComics.insertComicsHeros(idComics, idHeros);
-                                }
-
-                                if(unHeros.getNom().equals("Iron Man")){
-                                    unHeros.setCarateristiques(4,5,5,1);
-                                    datasource.updateCarac(unHeros.getNom(),4,5,5,1);
-                                }
-                                else if(unHeros.getNom().equals("Deadpool")){
-                                    unHeros.setCarateristiques(2,3,4,5);
-                                    datasource.updateCarac(unHeros.getNom(),2,3,4,5);
-                                }
-                                else if(unHeros.getNom().equals("Captain America")){
-                                    unHeros.setCarateristiques(5,3,3,0);
-                                    datasource.updateCarac(unHeros.getNom(),5,3,3,0);
-                                }
-                                else if(unHeros.getNom().equals("Black Widow")){
-                                    unHeros.setCarateristiques(3,4,2,3);
-                                    datasource.updateCarac(unHeros.getNom(),3,4,2,3);
-                                }
-                                else if(unHeros.getNom().equals("HULK")){
-                                    unHeros.setCarateristiques(2,1,1,4);
-                                    datasource.updateCarac(unHeros.getNom(),2,1,1,2);
-                                }
-                                else if(unHeros.getNom().equals("Rogue")){
-                                    unHeros.setCarateristiques(3,3,3,2);
-                                    datasource.updateCarac(unHeros.getNom(),3,3,3,2);
-                                }
-                                else if(unHeros.getNom().equals("3-D Man")){
-                                    unHeros.setCarateristiques(2,4,1,2);
-                                    datasource.updateCarac(unHeros.getNom(),2,4,1,2);
-                                }
-                                else if(unHeros.getNom().equals("Squirrel Girl")){
-                                    unHeros.setCarateristiques(3,2,4,3);
-                                    datasource.updateCarac(unHeros.getNom(),3,2,4,3);
-                                }
-                                else if(unHeros.getNom().equals("Nova")){
-                                    unHeros.setCarateristiques(2,3,2,1);
-                                    datasource.updateCarac(unHeros.getNom(),2,3,2,1);
-                                }
-                                else if(unHeros.getNom().equals("Falcon")){
-                                    unHeros.setCarateristiques(3,4,2,0);
-                                    datasource.updateCarac(unHeros.getNom(),3,4,2,0);
+                                    ArrayList<Series> seriesHeros = new ArrayList<>();
+                                    for (int i = 0; i < jsonS.length(); i++) {
+                                        Series laSerie = new Series();
+                                        laSerie.setNom(((JSONObject) jsonS.get(i)).getString("name"));
+                                        seriesHeros.add(laSerie);
+                                    }
+                                    herosSeries.put(leHeros, seriesHeros);
                                 }
 
-                                System.out.println(unHeros.toString());
+
+                                for (Heros unHeros : lesHeros) {
+                                    textView.post(new Runnable() {
+                                        public void run() {
+
+                                            textView.setText("Enregistrement de la liste des héros.\nVeuillez patienter...");
+                                        }
+                                    });
+                                    Thread.sleep(100);
+
+                                    System.out.println(unHeros.getNom() + " - IMG: " + unHeros.getUrlImage());
+                                    long idHeros = datasource.insertHeroesGetID(unHeros.getNom(), unHeros.getDesc(), unHeros.getUrlImage());
+
+                                    for (Series series : herosSeries.get(unHeros)) {
+                                        long idSeries = datasourceSeries.insertSeriesGetID(series.getNom());
+                                        datasourceSeries.insertSeriesHeros(idSeries, idHeros);
+                                    }
+                                    for (Comics comics : herosComics.get(unHeros)) {
+                                        long idComics = datasourceComics.insertComicsGetID(comics.getNom());
+                                        datasourceComics.insertComicsHeros(idComics, idHeros);
+                                    }
+
+                                    if(unHeros.getNom().equals("Iron Man")){
+                                        unHeros.setCarateristiques(4,5,5,1);
+                                        datasource.updateCarac(unHeros.getNom(),4,5,5,1);
+                                    }
+                                    else if(unHeros.getNom().equals("Deadpool")){
+                                        unHeros.setCarateristiques(2,3,4,5);
+                                        datasource.updateCarac(unHeros.getNom(),2,3,4,5);
+                                    }
+                                    else if(unHeros.getNom().equals("Captain America")){
+                                        unHeros.setCarateristiques(5,3,3,0);
+                                        datasource.updateCarac(unHeros.getNom(),5,3,3,0);
+                                    }
+                                    else if(unHeros.getNom().equals("Black Widow")){
+                                        unHeros.setCarateristiques(3,4,2,3);
+                                        datasource.updateCarac(unHeros.getNom(),3,4,2,3);
+                                    }
+                                    else if(unHeros.getNom().equals("HULK")){
+                                        unHeros.setCarateristiques(2,1,1,4);
+                                        datasource.updateCarac(unHeros.getNom(),2,1,1,2);
+                                    }
+                                    else if(unHeros.getNom().equals("Rogue")){
+                                        unHeros.setCarateristiques(3,3,3,2);
+                                        datasource.updateCarac(unHeros.getNom(),3,3,3,2);
+                                    }
+                                    else if(unHeros.getNom().equals("3-D Man")){
+                                        unHeros.setCarateristiques(2,4,1,2);
+                                        datasource.updateCarac(unHeros.getNom(),2,4,1,2);
+                                    }
+                                    else if(unHeros.getNom().equals("Squirrel Girl")){
+                                        unHeros.setCarateristiques(3,2,4,3);
+                                        datasource.updateCarac(unHeros.getNom(),3,2,4,3);
+                                    }
+                                    else if(unHeros.getNom().equals("Nova")){
+                                        unHeros.setCarateristiques(2,3,2,1);
+                                        datasource.updateCarac(unHeros.getNom(),2,3,2,1);
+                                    }
+                                    else if(unHeros.getNom().equals("Falcon")){
+                                        unHeros.setCarateristiques(3,4,2,0);
+                                        datasource.updateCarac(unHeros.getNom(),3,4,2,0);
+                                    }
+                                    else if(unHeros.getNom().equals("Blade")){
+                                        unHeros.setCarateristiques(4,2,3,2);
+                                        datasource.updateCarac(unHeros.getNom(),4,2,3,2);
+                                    }
+                                    else if(unHeros.getNom().equals("Black Panther")){
+                                        unHeros.setCarateristiques(4,4,3,1);
+                                        datasource.updateCarac(unHeros.getNom(),4,4,3,1);
+                                    }
+                                    else if(unHeros.getNom().equals("Doctor Strange")){
+                                        unHeros.setCarateristiques(3,3,2,3);
+                                        datasource.updateCarac(unHeros.getNom(),3,3,2,3);
+                                    }
+                                    else if(unHeros.getNom().equals("Iron Fist (Danny Rand)")){
+                                        unHeros.setCarateristiques(3,4,2,0);
+                                        datasource.updateCarac(unHeros.getNom(),3,4,2,0);
+                                    }
+                                    else if(unHeros.getNom().equals("Groot")){
+                                        unHeros.setCarateristiques(5,1,2,0);
+                                        datasource.updateCarac(unHeros.getNom(),5,1,2,0);
+                                    }
+                                    else if(unHeros.getNom().equals("Rocket Raccoon")){
+                                        unHeros.setCarateristiques(3,5,3,2);
+                                        datasource.updateCarac(unHeros.getNom(),3,5,3,2);
+                                    }
+                                    else if(unHeros.getNom().equals("Iceman")){
+                                        unHeros.setCarateristiques(3,2,1,1);
+                                        datasource.updateCarac(unHeros.getNom(),3,2,1,1);
+                                    }
+                                    else if(unHeros.getNom().equals("Jean Grey")){
+                                        unHeros.setCarateristiques(5,4,4,3);
+                                        datasource.updateCarac(unHeros.getNom(),5,4,4,3);
+                                    }
+                                    else if(unHeros.getNom().equals("War Machine (Ultimate)")){
+                                        unHeros.setCarateristiques(3,2,4,2);
+                                        datasource.updateCarac(unHeros.getNom(),3,2,4,2);
+                                    }
+                                    else if(unHeros.getNom().equals("Cyclops")){
+                                        unHeros.setCarateristiques(3,2,2,3);
+                                        datasource.updateCarac(unHeros.getNom(),3,2,2,3);
+                                    }
+                                    else if(unHeros.getNom().equals("Daredevil")){
+                                        unHeros.setCarateristiques(3,2,3,3);
+                                        datasource.updateCarac(unHeros.getNom(),3,2,3,3);
+                                    }
+                                    else if(unHeros.getNom().equals("Thor")){
+                                        unHeros.setCarateristiques(4,1,5,2);
+                                        datasource.updateCarac(unHeros.getNom(),4, 1,5,2);
+                                    }
+                                    else if(unHeros.getNom().equals("Hawkeye")){
+                                        unHeros.setCarateristiques(2,3,0,3);
+                                        datasource.updateCarac(unHeros.getNom(),2, 3,0,3);
+                                    }
+                                    else if(unHeros.getNom().equals("Johnny Blaze")){
+                                        unHeros.setCarateristiques(3,1,2,5);
+                                        datasource.updateCarac(unHeros.getNom(),3, 1,2,5);
+                                    }
+                                    else if(unHeros.getNom().equals("Punisher")){
+                                        unHeros.setCarateristiques(2,3,4,5);
+                                        datasource.updateCarac(unHeros.getNom(),2, 3,4,5);
+                                    }
+                                    else if(unHeros.getNom().equals("Black Bolt")){
+                                        unHeros.setCarateristiques(1,4,4,0);
+                                        datasource.updateCarac(unHeros.getNom(),1, 4,4,0);
+                                    }
+                                    else if(unHeros.getNom().equals("Gambit")){
+                                        unHeros.setCarateristiques(2,4,4,2);
+                                        datasource.updateCarac(unHeros.getNom(),2, 4,4,2);
+                                    }
+                                    else if(unHeros.getNom().equals("Moon Knight")){
+                                        unHeros.setCarateristiques(3,2,4,3);
+                                        datasource.updateCarac(unHeros.getNom(),3, 2,4,3);
+                                    }
+                                    else if(unHeros.getNom().equals("Spider-Man")){
+                                        unHeros.setCarateristiques(3,4,0,2);
+                                        datasource.updateCarac(unHeros.getNom(),3, 4,0,2);
+                                    }
+                                    else if(unHeros.getNom().equals("Vision")){
+                                        unHeros.setCarateristiques(3,5,0,1);
+                                        datasource.updateCarac(unHeros.getNom(),3, 5,0,1);
+                                    }
+
+                                    System.out.println(unHeros.toString());
+                                }
+
+                                Intent pageMenuDemarrer = new Intent(SplashScreenActivity.this, MenuDemarrer.class);
+                                startActivity(pageMenuDemarrer);
+                                finish();
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-
-                            Intent pageMenuDemarrer = new Intent(SplashScreenActivity.this, MenuDemarrer.class);
-                            startActivity(pageMenuDemarrer);
-                            finish();
-
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } catch (JSONException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
-                }
-            });
+                });
 
-            threadJSON.start();
-        }
-        else if( !(datasource.getAllHeros().isEmpty()) )
-        {
-            textView.setText("Récupération de la liste des héros.\nVeuillez patienter...");
+                threadJSON.start();
+            }
+            else if( !(datasource.getAllHeros().isEmpty()) )
+            {
+                textView.setText("Récupération de la liste des héros.\nVeuillez patienter...");
 
-            Timer timer = new Timer();
+                Timer timer = new Timer();
 
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    Intent pageMenuDemarrer = new Intent(SplashScreenActivity.this, MenuDemarrer.class);
-                    startActivity(pageMenuDemarrer);
-                    finish();
-                }
-            }, 2000);
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        Intent pageMenuDemarrer = new Intent(SplashScreenActivity.this, MenuDemarrer.class);
+                        startActivity(pageMenuDemarrer);
+                        finish();
+                    }
+                }, 2000);
+            }
         }
         else
         {

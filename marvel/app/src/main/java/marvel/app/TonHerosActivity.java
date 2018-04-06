@@ -6,8 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
@@ -30,8 +28,6 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.security.spec.ECField;
-import java.sql.SQLOutput;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -48,7 +44,7 @@ import marvel.JSON.enums.ECaracteristiques;
 import marvel.Reponses;
 import marvel.Tables.Association;
 import marvel.Tables.Heros;
-import marvel.Tables.PartieStatic;
+import marvel.PartieStatic;
 
 public class TonHerosActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -145,7 +141,7 @@ public class TonHerosActivity extends AppCompatActivity {
             datasourceParties = new PartiesDataSource(getApplicationContext());
             datasourceParties.open();
             datasourceParties.setTermine(PartieStatic.getId());
-            String date = new SimpleDateFormat("dd.MM.yyyy.HH.mm.ss").format(new Timestamp(System.currentTimeMillis()));
+            String date = new SimpleDateFormat("dd/MM/yyyy - HH:mm:ss").format(new Timestamp(System.currentTimeMillis()));
             datasourceParties.updateDate(PartieStatic.getId(), date);
             Random rand = new Random();
             int i = rand.nextInt(listHeros.size());
@@ -452,31 +448,31 @@ public class TonHerosActivity extends AppCompatActivity {
 
         switch (repE){
             case "INTELLIGENT" : if(arrayValeur.containsKey(ECaracteristiques.INTELLIGENT)){
-                arrayValeur.put(ECaracteristiques.INTELLIGENT, arrayValeur.get(ECaracteristiques.INTELLIGENT) + 1  );
-            }
-            else
-                arrayValeur.put(ECaracteristiques.INTELLIGENT, 1);
+                                    arrayValeur.put(ECaracteristiques.INTELLIGENT, arrayValeur.get(ECaracteristiques.INTELLIGENT) + 1  );
+                                }
+                                else
+                                    arrayValeur.put(ECaracteristiques.INTELLIGENT, 1);
                 break;
 
             case "HEROIQUE" : if(arrayValeur.containsKey(ECaracteristiques.HEROIQUE)){
-                arrayValeur.put(ECaracteristiques.HEROIQUE, arrayValeur.get(ECaracteristiques.HEROIQUE) + 1  );
-            }
-            else
-                arrayValeur.put(ECaracteristiques.HEROIQUE, 1);
+                                arrayValeur.put(ECaracteristiques.HEROIQUE, arrayValeur.get(ECaracteristiques.HEROIQUE) + 1  );
+                            }
+                            else
+                                arrayValeur.put(ECaracteristiques.HEROIQUE, 1);
                 break;
 
             case "CHARISMATIQUE" : if(arrayValeur.containsKey(ECaracteristiques.CHARISMATIQUE)){
-                arrayValeur.put(ECaracteristiques.CHARISMATIQUE, arrayValeur.get(ECaracteristiques.CHARISMATIQUE) + 1  );
-            }
-            else
-                arrayValeur.put(ECaracteristiques.CHARISMATIQUE, 1);
+                                    arrayValeur.put(ECaracteristiques.CHARISMATIQUE, arrayValeur.get(ECaracteristiques.CHARISMATIQUE) + 1  );
+                                }
+                                else
+                                    arrayValeur.put(ECaracteristiques.CHARISMATIQUE, 1);
                 break;
 
             case "PSYCHOPATHE" : if(arrayValeur.containsKey(ECaracteristiques.PSYCHOPATHE)){
-                arrayValeur.put(ECaracteristiques.PSYCHOPATHE, arrayValeur.get(ECaracteristiques.PSYCHOPATHE) + 1  );
-            }
-            else
-                arrayValeur.put(ECaracteristiques.PSYCHOPATHE, 1);
+                                    arrayValeur.put(ECaracteristiques.PSYCHOPATHE, arrayValeur.get(ECaracteristiques.PSYCHOPATHE) + 1  );
+                                }
+                                else
+                                    arrayValeur.put(ECaracteristiques.PSYCHOPATHE, 1);
                 break;
         }
 
@@ -542,21 +538,25 @@ public class TonHerosActivity extends AppCompatActivity {
     private void openSettingsUser(){
         Intent pageSettingsUser = new Intent(this, SettingsUser.class);
         startActivity(pageSettingsUser);
+        finish();
     }
 
     private void openSettingsLaw(){
         Intent pageSettingsLaw = new Intent(this, SettingsLaw.class);
         startActivity(pageSettingsLaw);
+        finish();
     }
 
     private void openMesHeros(){
         Intent pageSettingsUser = new Intent(this, MesHeros.class);
         startActivity(pageSettingsUser);
+        finish();
     }
 
     private void openHome(){
         Intent pageSettingsLaw = new Intent(this, MenuDemarrer.class);
         startActivity(pageSettingsLaw);
+        finish();
     }
 
     private void back(){

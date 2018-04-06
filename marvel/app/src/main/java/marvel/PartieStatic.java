@@ -1,4 +1,4 @@
-package marvel.Tables;
+package marvel;
 
 /**
  * Created by adefings on 03/04/2018.

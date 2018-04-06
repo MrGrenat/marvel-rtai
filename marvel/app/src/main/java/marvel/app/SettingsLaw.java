@@ -89,19 +89,24 @@ public class SettingsLaw  extends AppCompatActivity {
     private void openSettingsUser(){
         Intent pageSettingsUser = new Intent(this, SettingsUser.class);
         startActivity(pageSettingsUser);
+        finish();
     }
+
     private void openSettingsLaw(){
         Intent pageSettingsLaw = new Intent(this, SettingsLaw.class);
         startActivity(pageSettingsLaw);
+        finish();
     }
     private void openMesHeros(){
         Intent pageSettingsUser = new Intent(this, MesHeros.class);
         startActivity(pageSettingsUser);
+        finish();
     }
 
     private void openHome(){
         Intent pageSettingsLaw = new Intent(this, MenuDemarrer.class);
         startActivity(pageSettingsLaw);
+        finish();
     }
 
     private void back(){

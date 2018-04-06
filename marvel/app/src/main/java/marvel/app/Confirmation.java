@@ -95,7 +95,7 @@ public class Confirmation extends AppCompatActivity {
             repB.setBackgroundColor(getResources().getColor(R.color.colorOrange));
 
         if(Reponses.getRepC().equals(ECaracteristiques.INTELLIGENT))
-            repB.setBackgroundColor(getResources().getColor(R.color.colorRed));
+            repC.setBackgroundColor(getResources().getColor(R.color.colorRed));
         else if(Reponses.getRepC().equals(ECaracteristiques.HEROIQUE))
             repC.setBackgroundColor(getResources().getColor(R.color.colorGreen));
         else if(Reponses.getRepC().equals(ECaracteristiques.CHARISMATIQUE))
@@ -126,8 +126,6 @@ public class Confirmation extends AppCompatActivity {
         btnModif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent pageQuestionnaire = new Intent(Confirmation.this, Questionnaire.class);
-                startActivity(pageQuestionnaire);
                 finish();
             }
         });
@@ -140,6 +138,7 @@ public class Confirmation extends AppCompatActivity {
                 Intent pageTonHeros = new Intent(Confirmation.this, TonHerosActivity.class);
                 startActivity(pageTonHeros);
                 finish();
+                
             }
         });
 
@@ -190,21 +189,25 @@ public class Confirmation extends AppCompatActivity {
     private void openSettingsUser(){
         Intent pageSettingsUser = new Intent(this, SettingsUser.class);
         startActivity(pageSettingsUser);
+        finish();
     }
 
     private void openSettingsLaw(){
         Intent pageSettingsLaw = new Intent(this, SettingsLaw.class);
         startActivity(pageSettingsLaw);
+        finish();
     }
 
     private void openMesHeros(){
         Intent pageSettingsUser = new Intent(this, MesHeros.class);
         startActivity(pageSettingsUser);
+        finish();
     }
 
     private void openHome(){
         Intent pageSettingsLaw = new Intent(this, MenuDemarrer.class);
         startActivity(pageSettingsLaw);
+        finish();
     }
 
     private void back(){

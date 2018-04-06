@@ -66,7 +66,6 @@ public class Question_un extends Fragment {
         repC.setText(this.reponses.get(2));
         repD.setText(this.reponses.get(3));
 
-
         repA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){

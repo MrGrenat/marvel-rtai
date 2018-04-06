@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -23,7 +24,7 @@ import marvel.DataSource.HerosDataSource;
 import marvel.DataSource.SeriesDataSource;
 import marvel.Tables.Comics;
 import marvel.Tables.Heros;
-import marvel.Tables.PartieStatic;
+import marvel.PartieStatic;
 import marvel.Tables.Series;
 
 public class FicheHeroActivity extends AppCompatActivity {
@@ -34,12 +35,20 @@ public class FicheHeroActivity extends AppCompatActivity {
     private HerosDataSource datasourceHeros =  new HerosDataSource(this);
     private ComicsDataSource datasourceComics = new ComicsDataSource(this);
     private SeriesDataSource datasourceSeries = new SeriesDataSource(this);
+
     private ImageView photo;
     private TextView tv_nom;
     private TextView tv_desc;
     private TextView tv_apparaitDans;
+    private TextView tv_carac;
+    private ProgressBar pg_intel;
+    private ProgressBar pg_hero;
+    private ProgressBar pg_charism;
+    private ProgressBar pg_psycho;
+
     private List<String> heroApparaitComics;
     private List<String> heroApparaitSeries;
+
     StringBuilder builder1, builder2;
 
     @Override
@@ -89,7 +98,7 @@ public class FicheHeroActivity extends AppCompatActivity {
 
         Heros unHero = new Heros();
         unHero = datasourceHeros.getUnHeros(PartieStatic.getIdheros());
-
+        System.out.println(unHero.toString());
         List<Comics> lesComicsDuHero = new ArrayList<>();
         lesComicsDuHero = datasourceComics.getLesComicsDunHeros(unHero.getId());
         for(int i=0; i<lesComicsDuHero.size(); i++)
@@ -115,12 +124,43 @@ public class FicheHeroActivity extends AppCompatActivity {
         tv_nom = (TextView)findViewById(R.id.tv_nomHeros);
         tv_desc = (TextView)findViewById(R.id.tv_desc);
         tv_apparaitDans = (TextView)findViewById(R.id.tv_apparait);
-
+        tv_carac = findViewById(R.id.tv_carac);
         tv_nom.setText(unHero.getNom());
-        tv_desc.setText("Description : "+unHero.getDesc());
+
+        if(unHero.getDesc().length() > 5)
+            tv_desc.setText("Description : " + unHero.getDesc());
+        else
+            tv_desc.setText("Aucune description disponible.");
+
         photo = (ImageView)findViewById(R.id.iv_photo);
         Picasso.with(this).load(unHero.getUrlImage()).into(photo);
         tv_apparaitDans.setText("Les comics du héros \n"+builder1.toString()+"\n\nLes séries du héros :\n"+builder2.toString());
+
+
+        String carac = "Les caractéristiques du héros:";
+
+        pg_intel = (ProgressBar)findViewById(R.id.pg_intel);
+        pg_hero = (ProgressBar)findViewById(R.id.pg_hero);
+        pg_charism = (ProgressBar)findViewById(R.id.pg_charism);
+        pg_psycho = (ProgressBar)findViewById(R.id.pg_psycho);
+
+        pg_intel.setMax(5);
+        pg_hero.setMax(5);
+        pg_charism.setMax(5);
+        pg_psycho.setMax(5);
+
+        pg_intel.setProgress(unHero.getIntelligent());
+        pg_hero.setProgress(unHero.getHeroique());
+        pg_charism.setProgress(unHero.getCharismatique());
+        pg_psycho.setProgress(unHero.getPsychopathe());
+        /*
+        carac += "\nIntelligent: " + unHero.getIntelligent() + "/5";
+        carac += "\nHéroïque: " + unHero.getHeroique() + "/5";
+        carac += "\nCharismatique: " + unHero.getCharismatique() + "/5";
+        carac += "\nPsychopathe: " + unHero.getPsychopathe() + "/5";*/
+
+        tv_carac.setText(carac);
+
     }
 
     //Appel du menu
@@ -159,21 +199,25 @@ public class FicheHeroActivity extends AppCompatActivity {
     private void openSettingsUser(){
         Intent pageSettingsUser = new Intent(this, SettingsUser.class);
         startActivity(pageSettingsUser);
+        finish();
     }
 
     private void openSettingsLaw(){
         Intent pageSettingsLaw = new Intent(this, SettingsLaw.class);
         startActivity(pageSettingsLaw);
+        finish();
     }
 
     private void openMesHeros(){
         Intent pageSettingsUser = new Intent(this, MesHeros.class);
         startActivity(pageSettingsUser);
+        finish();
     }
 
     private void openHome(){
         Intent pageSettingsLaw = new Intent(this, MenuDemarrer.class);
         startActivity(pageSettingsLaw);
+        finish();
     }
 
     private void back(){

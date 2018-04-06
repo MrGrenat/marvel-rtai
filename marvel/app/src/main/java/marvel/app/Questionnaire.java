@@ -95,11 +95,7 @@ public class Questionnaire extends AppCompatActivity {
         });
 
 
-        Button btnValider = (Button) findViewById(R.id.btnValider);
-
-
-
-
+        Button btnValider = findViewById(R.id.btnValider);
 
         //Création de toutes les questions
         setupQuestions();
@@ -132,7 +128,6 @@ public class Questionnaire extends AppCompatActivity {
                 {
                     Intent pageConfirm = new Intent(Questionnaire.this, Confirmation.class);
                     startActivity(pageConfirm);
-                    finish();
                 }
                 else
                 {
@@ -282,7 +277,7 @@ public class Questionnaire extends AppCompatActivity {
         q = "Qui est un héros ?";
         rep1 = "Les pompiers / la police / le SAMU";
         rep2 = "Vous même";
-        rep3 = "Les gens disent vous";
+        rep3 = "On dit que c'est vous";
         rep4 = "Les chasseurs de prime";
 
         reps = new ArrayList<>();
@@ -352,6 +347,81 @@ public class Questionnaire extends AppCompatActivity {
         reps.add(rep4);
 
         questions.put(q, reps);
+
+        //Question 11
+        q = "Quelle est ta boisson préférée ?";
+        rep1 = "De l'eau";
+        rep2 = "Une boisson énergisante";
+        rep3 = "une bouteille de mouette et chandon";
+        rep4 = "De l'absinthe";
+
+        reps = new ArrayList<>();
+        reps.add(rep1);
+        reps.add(rep2);
+        reps.add(rep3);
+        reps.add(rep4);
+
+        questions.put(q, reps);
+
+        //Question 12
+        q = "Ton meilleur ami est un super vilain, que fais-tu ?";
+        rep1 = "J'appelle la police";
+        rep2 = "Je l'arrête";
+        rep3 = "Je discute avec lui";
+        rep4 = "Je l'aide";
+
+        reps = new ArrayList<>();
+        reps.add(rep1);
+        reps.add(rep2);
+        reps.add(rep3);
+        reps.add(rep4);
+
+        questions.put(q, reps);
+
+        //Question 13
+        q = "Le jour vous êtes";
+        rep1 = "Employé d'une entreprise";
+        rep2 = "Super héros à plein temps";
+        rep3 = "Chef d'entreprise";
+        rep4 = "Dans votre lit";
+
+        reps = new ArrayList<>();
+        reps.add(rep1);
+        reps.add(rep2);
+        reps.add(rep3);
+        reps.add(rep4);
+
+        questions.put(q, reps);
+
+        //Question 14
+        q = "Votre famille est danger, que faites-vous ?";
+        rep1 = "Je m'assure qu'ils soient bien cachés";
+        rep2 = "Je les protèges";
+        rep3 = "Je les préviens";
+        rep4 = "C'est moi le danger";
+
+        reps = new ArrayList<>();
+        reps.add(rep1);
+        reps.add(rep2);
+        reps.add(rep3);
+        reps.add(rep4);
+
+        questions.put(q, reps);
+
+        //Question 15
+        q = "Votre estomac crie famine, que décidez-vous ?";
+        rep1 = "Je me fais à manger";
+        rep2 = "Je partage un repas avec une personne sans-abri";
+        rep3 = "Je demande à mon assistante de commander à manger";
+        rep4 = "Oh, un écureuil ! ";
+
+        reps = new ArrayList<>();
+        reps.add(rep1);
+        reps.add(rep2);
+        reps.add(rep3);
+        reps.add(rep4);
+
+        questions.put(q, reps);
     }
 
     //Appel du menu
@@ -390,21 +460,25 @@ public class Questionnaire extends AppCompatActivity {
     private void openSettingsUser(){
         Intent pageSettingsUser = new Intent(this, SettingsUser.class);
         startActivity(pageSettingsUser);
+        finish();
     }
 
     private void openSettingsLaw(){
         Intent pageSettingsLaw = new Intent(this, SettingsLaw.class);
         startActivity(pageSettingsLaw);
+        finish();
     }
 
     private void openMesHeros(){
         Intent pageSettingsUser = new Intent(this, MesHeros.class);
         startActivity(pageSettingsUser);
+        finish();
     }
 
     private void openHome(){
         Intent pageSettingsLaw = new Intent(this, MenuDemarrer.class);
         startActivity(pageSettingsLaw);
+        finish();
     }
 
     private void back(){
