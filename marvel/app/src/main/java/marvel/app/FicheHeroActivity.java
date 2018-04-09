@@ -76,7 +76,7 @@ public class FicheHeroActivity extends AppCompatActivity {
         //Selection puis Modification du Texte view
         //de la toolbar = titre personnalisé selon la page
         TextView title = findViewById(R.id.toolbar_title);
-        title.setText("Mon héros");
+        title.setText("Fiche héros");
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -215,8 +215,9 @@ public class FicheHeroActivity extends AppCompatActivity {
     }
 
     private void openHome(){
-        Intent pageSettingsLaw = new Intent(this, MenuDemarrer.class);
-        startActivity(pageSettingsLaw);
+        Intent pageHome = new Intent(this, MenuDemarrer.class);
+        pageHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(pageHome);
         finish();
     }
 

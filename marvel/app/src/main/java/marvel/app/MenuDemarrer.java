@@ -16,13 +16,21 @@ import android.widget.ImageView;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.List;
+
+import marvel.DataSource.PartiesDataSource;
 import marvel.Reponses;
+import marvel.Tables.Partie;
 
 
 public class MenuDemarrer extends AppCompatActivity{
     private Button startBtn = null;
     private Button mesHerosBtn = null;
     private Toolbar toolbar;
+    private PartiesDataSource datasourceParties;
+    private List<Partie> parties;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Plein Ecran
@@ -61,7 +69,34 @@ public class MenuDemarrer extends AppCompatActivity{
                 startActivity(pageGetPseudo);
             }
         });
+
+
+        datasourceParties = new PartiesDataSource(getApplicationContext());
+        datasourceParties.open();
+        parties = datasourceParties.getAllParties();
+
+        boolean show = false;
+
+
+        if(!parties.isEmpty())
+        {
+            int i = 0;
+            while(!show && i < parties.size())
+            {
+                if(parties.get(i).getTermine() == 1)
+                    show = true;
+
+                i++;
+            }
+        }
+
+
+
         mesHerosBtn = (Button) findViewById(R.id.herosButton);
+
+        if(!show)
+            mesHerosBtn.setVisibility(View.INVISIBLE);
+
         mesHerosBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View startBtn) {
@@ -70,6 +105,33 @@ public class MenuDemarrer extends AppCompatActivity{
             }
         });
 
+
+    }
+
+    //Retour sur l'activité
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+
+        boolean show = false;
+
+        if(!parties.isEmpty())
+        {
+            int i = 0;
+            while(!show && i < parties.size())
+            {
+                if(parties.get(i).getTermine() == 1)
+                    show = true;
+
+                i++;
+            }
+        }
+
+        if(!show)
+            mesHerosBtn.setVisibility(View.INVISIBLE);
+        else
+            mesHerosBtn.setVisibility(View.VISIBLE);
 
     }
 
@@ -119,8 +181,10 @@ public class MenuDemarrer extends AppCompatActivity{
     }
 
     private void openHome(){
-        Intent pageSettingsLaw = new Intent(this, MenuDemarrer.class);
-        startActivity(pageSettingsLaw);
+        Intent pageHome = new Intent(this, MenuDemarrer.class);
+        pageHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(pageHome);
+        finish();
     }
 
     private void back(){

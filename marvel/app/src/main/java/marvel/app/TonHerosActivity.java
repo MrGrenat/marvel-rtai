@@ -80,7 +80,7 @@ public class TonHerosActivity extends AppCompatActivity {
         //Selection puis Modification du Texte view
         //de la toolbar = titre personnalisé selon la page
         TextView title = findViewById(R.id.toolbar_title);
-        title.setText("Mon Héros");
+        title.setText("Ton Héros");
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,8 +96,9 @@ public class TonHerosActivity extends AppCompatActivity {
         accueil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent pageAccueil = new Intent(TonHerosActivity.this, MenuDemarrer.class);
-                startActivity(pageAccueil);
+                Intent pageHome = new Intent(TonHerosActivity.this, MenuDemarrer.class);
+                pageHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(pageHome);
                 finish();
             }
         });
@@ -554,8 +555,9 @@ public class TonHerosActivity extends AppCompatActivity {
     }
 
     private void openHome(){
-        Intent pageSettingsLaw = new Intent(this, MenuDemarrer.class);
-        startActivity(pageSettingsLaw);
+        Intent pageHome = new Intent(this, MenuDemarrer.class);
+        pageHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(pageHome);
         finish();
     }
 

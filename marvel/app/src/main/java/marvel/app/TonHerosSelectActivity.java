@@ -89,8 +89,9 @@ public class TonHerosSelectActivity extends AppCompatActivity {
         accueil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent pageAccueil = new Intent(TonHerosSelectActivity.this, MenuDemarrer.class);
-                startActivity(pageAccueil);
+                Intent pageHome = new Intent(TonHerosSelectActivity.this, MenuDemarrer.class);
+                pageHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(pageHome);
                 finish();
             }
         });
@@ -330,8 +331,9 @@ public class TonHerosSelectActivity extends AppCompatActivity {
     }
 
     private void openHome(){
-        Intent pageSettingsLaw = new Intent(this, MenuDemarrer.class);
-        startActivity(pageSettingsLaw);
+        Intent pageHome = new Intent(this, MenuDemarrer.class);
+        pageHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(pageHome);
         finish();
     }
 

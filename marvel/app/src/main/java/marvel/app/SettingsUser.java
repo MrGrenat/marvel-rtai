@@ -114,8 +114,9 @@ public class SettingsUser  extends AppCompatActivity {
                 datasourceUtilisateur.updatePseudoUtilisateur(pseudo);
             }
 
-            Intent accueil = new Intent(SettingsUser.this, MenuDemarrer.class);
-            startActivity(accueil);
+            Intent pageHome = new Intent(this, MenuDemarrer.class);
+            pageHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(pageHome);
             finish();
         }
     }
@@ -170,8 +171,9 @@ public class SettingsUser  extends AppCompatActivity {
         finish();
     }
     private void openHome(){
-        Intent pageSettingsLaw = new Intent(this, MenuDemarrer.class);
-        startActivity(pageSettingsLaw);
+        Intent pageHome = new Intent(this, MenuDemarrer.class);
+        pageHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(pageHome);
         finish();
     }
 

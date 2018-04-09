@@ -136,6 +136,7 @@ public class Confirmation extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent pageTonHeros = new Intent(Confirmation.this, TonHerosActivity.class);
+                pageTonHeros.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(pageTonHeros);
                 finish();
                 
@@ -205,8 +206,9 @@ public class Confirmation extends AppCompatActivity {
     }
 
     private void openHome(){
-        Intent pageSettingsLaw = new Intent(this, MenuDemarrer.class);
-        startActivity(pageSettingsLaw);
+        Intent pageHome = new Intent(this, MenuDemarrer.class);
+        pageHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(pageHome);
         finish();
     }
 

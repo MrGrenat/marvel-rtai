@@ -380,8 +380,9 @@ public class SplashScreenActivity extends AppCompatActivity {
         new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle("Pas d'internet")
+                .setCancelable(false)
                 .setMessage("Veuillez activer votre conenxion internet pour continuer.")
-                .setPositiveButton("Continuer", new DialogInterface.OnClickListener()
+                .setPositiveButton("Quitter", new DialogInterface.OnClickListener()
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
